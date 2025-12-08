@@ -8,6 +8,8 @@ import Login from "../pages/Auth/Login/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Auth/Register/Register";
 import AllContests from "../pages/Contests/AllContests";
+import ContestDetails from "../pages/ContestDetails/ContestDetails";
+import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ export const router = createBrowserRouter([
       {
         path: "all-contests",
         Component: AllContests,
+      },
+      {
+        path: "contest/:id",
+        element: <ContestDetails></ContestDetails>,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
       },
     ],
   },
