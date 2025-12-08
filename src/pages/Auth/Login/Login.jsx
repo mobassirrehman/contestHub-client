@@ -138,7 +138,7 @@ const Login = () => {
             )}
           </div>
           <div className="flex justify-end">
-            <Link to="/forgot-password" className="link link-primary text-sm">
+            <Link to="/forgot-password" className="link text-cyan-500 text-sm">
               Forgot Password?
             </Link>
           </div>
@@ -147,7 +147,10 @@ const Login = () => {
               <span>{loginError}</span>
             </div>
           )}
-          <button type="submit" className="btn btn-primary w-full">
+          <button
+            type="submit"
+            className="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 w-full"
+          >
             Login
           </button>
         </form>
@@ -159,7 +162,7 @@ const Login = () => {
           <Link
             to="/register"
             state={location.state}
-            className="link link-primary font-semibold"
+            className="link text-cyan-500 font-semibold"
           >
             Register Now
           </Link>

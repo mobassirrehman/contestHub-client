@@ -309,7 +309,7 @@ const Register = () => {
               />
               <span className="label-text">
                 I agree to the{" "}
-                <Link to="/terms" className="link link-primary">
+                <Link to="/terms" className="link text-cyan-500">
                   Terms & Conditions
                 </Link>
               </span>
@@ -324,7 +324,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary w-full"
+            className="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 w-full"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -344,7 +344,7 @@ const Register = () => {
           <Link
             to="/login"
             state={location.state}
-            className="link link-primary font-semibold"
+            className="link text-cyan-500 font-semibold"
           >
             Login Here
           </Link>

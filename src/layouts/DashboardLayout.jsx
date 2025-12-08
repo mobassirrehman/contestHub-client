@@ -67,7 +67,9 @@ const DashboardLayout = () => {
           to={link.to}
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-              isActive ? "bg-primary text-primary-content" : "hover:bg-base-300"
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-primary-content"
+                : "hover:bg-base-300"
             }`
           }
         >
@@ -130,7 +132,7 @@ const DashboardLayout = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive
-                        ? "bg-primary text-primary-content"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-primary-content"
                         : "hover:bg-base-300"
                     }`
                   }

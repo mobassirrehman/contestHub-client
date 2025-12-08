@@ -20,7 +20,7 @@ const NavBar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive ? "text-cyan-500 font-semibold" : ""
           }
         >
           Home
@@ -30,7 +30,7 @@ const NavBar = () => {
         <NavLink
           to="/all-contests"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive ? "text-cyan-500 font-semibold" : ""
           }
         >
           All Contests
@@ -40,7 +40,7 @@ const NavBar = () => {
         <NavLink
           to="/leaderboard"
           className={({ isActive }) =>
-            isActive ? "text-primary font-semibold" : ""
+            isActive ? "text-cyan-500 font-semibold" : ""
           }
         >
           Leaderboard
@@ -76,25 +76,24 @@ const NavBar = () => {
             {navLinks}
           </ul>
         </div>
-        <Logo></Logo>
+        <Logo />
       </div>
 
-      {/* Desktop Menu */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
 
       <div className="navbar-end gap-2">
-        <ThemeToggle></ThemeToggle>
+        <ThemeToggle />
 
         {user ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <div className="w-10 rounded-full ring ring-cyan-500 ring-offset-base-100 ring-offset-2">
                 <img
                   src={
                     user.photoURL ||
-                    "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
+                    "https://i.ibb.co/MgsTCcv/user-placeholder.jpg"
                   }
                   alt={user.displayName}
                 />
@@ -116,7 +115,10 @@ const NavBar = () => {
             </ul>
           </div>
         ) : (
-          <Link to="/login" className="btn btn-primary btn-sm">
+          <Link
+            to="/login"
+            className="btn btn-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white border-none"
+          >
             Login
           </Link>
         )}
