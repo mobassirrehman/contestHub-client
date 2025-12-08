@@ -13,7 +13,7 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import useAxios from "../../hooks/useAxios";
-import { StatsCardSkeleton } from "../../components/Skeletons/Skeletons";
+import SkeletonLoader from "../../components/Skeletons/Skeletons";
 
 const AnimatedCounter = ({ end, duration = 2, prefix = "", suffix = "" }) => {
   const [count, setCount] = useState(0);
@@ -173,11 +173,7 @@ const WinnerSection = () => {
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
-            {[...Array(4)].map((_, i) => (
-              <StatsCardSkeleton key={i} />
-            ))}
-          </div>
+          <SkeletonLoader type="stats" />
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
             {statsData.map((stat, index) => (

@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import useAxios from "../../hooks/useAxios";
 import ContestCard from "../../components/ContestCard/ContestCard";
-import { ContestCardSkeleton } from "../../components/Skeletons/Skeletons";
+import SkeletonLoader from "../../components/Skeletons/Skeletons";
 
 const AllContests = () => {
   const axiosPublic = useAxios();
@@ -156,7 +156,10 @@ const AllContests = () => {
         >
           <p className="text-gray-500">
             {isLoading ? (
-              "Loading contests..."
+              <span className="flex items-center gap-2">
+                <span className="loading loading-spinner loading-xs"></span>
+                Loading contests...
+              </span>
             ) : (
               <>
                 Showing{" "}
@@ -197,11 +200,7 @@ const AllContests = () => {
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(6)].map((_, i) => (
-              <ContestCardSkeleton key={i} />
-            ))}
-          </div>
+          <SkeletonLoader type="cards" count={6} />
         ) : contests.length > 0 ? (
           <motion.div
             initial={{ opacity: 0 }}

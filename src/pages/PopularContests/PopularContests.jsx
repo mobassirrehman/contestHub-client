@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaArrowRight, FaFire } from "react-icons/fa";
 import useAxios from "../../hooks/useAxios";
 import ContestCard from "../../components/ContestCard/ContestCard";
+import SkeletonLoader from "../../components/Skeletons/Skeletons";
 // import { FaTrophy } from "react-icons/fa";
 
 const PopularContests = () => {
@@ -51,11 +52,7 @@ const PopularContests = () => {
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {[...Array(6)].map((_, i) => (
-              <ContestCardSkeleton key={i} />
-            ))}
-          </div>
+          <SkeletonLoader type="cards" count={6} />
         ) : contests.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {contests.map((contest, index) => (
