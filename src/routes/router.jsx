@@ -10,6 +10,9 @@ import Register from "../pages/Auth/Register/Register";
 import AllContests from "../pages/Contests/AllContests";
 import ContestDetails from "../pages/ContestDetails/ContestDetails";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
+import MyParticipated from "../pages/Dashboard/User/MyParticipated";
+import MyProfile from "../pages/Dashboard/User/MyProfile";
+import MyWinning from "../pages/Dashboard/User/MyWinning";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +59,20 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    children: [
+      {
+        index: true,
+        Component: MyParticipated,
+      },
+      {
+        path: "profile",
+        Component: MyProfile,
+      },
+      {
+        path: "my-winning",
+        Component: MyWinning,
+      },
+    ],
   },
   {
     path: "*",

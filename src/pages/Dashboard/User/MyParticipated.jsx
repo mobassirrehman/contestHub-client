@@ -10,9 +10,9 @@ import {
   FaPaperPlane,
   FaCalendarAlt,
 } from "react-icons/fa";
+import SkeletonLoader from "../../../components/Skeletons/Skeletons";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import SkeletonLoader from "../../../components/SkeletonLoader";
 
 const MyParticipated = () => {
   const { user } = useAuth();
