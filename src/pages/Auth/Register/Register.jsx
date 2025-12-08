@@ -33,7 +33,9 @@ const Register = () => {
   const from = location.state || "/";
   const password = watch("password");
 
-  const imageHostingAPI = ``;
+  const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_IMAGE_HOST_KEY
+  }`;
 
   const handleRegistration = async (data) => {
     setIsLoading(true);
