@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FaSearch, FaTrophy, FaUsers, FaMedal } from "react-icons/fa";
 
@@ -98,7 +97,7 @@ const Banner = () => {
           animate="visible"
         >
           <motion.div variants={itemVariants} className="inline-block mb-6">
-            <span className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-full opacity-50 text-sm font-medium">
+            <span className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 text-white rounded-full opacity-50 text-sm font-medium">
               The #1 Contest Platform
             </span>
           </motion.div>

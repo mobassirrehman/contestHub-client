@@ -7,6 +7,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import Login from "../pages/Auth/Login/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Auth/Register/Register";
+import AllContests from "../pages/Contests/AllContests";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "all-contests",
+        Component: AllContests,
       },
     ],
   },

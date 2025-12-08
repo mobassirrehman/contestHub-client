@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Swiper infinite ticker */
+.winner-ticker .swiper-wrapper {
+  transition-timing-function: linear !important;
+}

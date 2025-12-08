@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router';
-/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 import { FaUsers, FaClock, FaTrophy, FaFire, FaStar } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';

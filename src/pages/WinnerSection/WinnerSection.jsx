@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-/* eslint-disable no-unused-vars */
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import {
@@ -9,8 +8,12 @@ import {
   FaMedal,
   FaCrown,
 } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
 import useAxios from "../../hooks/useAxios";
-import { MdCelebration } from "react-icons/md";
+import { StatsCardSkeleton } from "../../components/Skeletons/Skeletons";
 
 const AnimatedCounter = ({ end, duration = 2, prefix = "", suffix = "" }) => {
   const [count, setCount] = useState(0);
@@ -44,10 +47,41 @@ const AnimatedCounter = ({ end, duration = 2, prefix = "", suffix = "" }) => {
   );
 };
 
+const WinnerTickerCard = ({ winner }) => {
+  return (
+    <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl px-5 py-4 min-w-fit">
+      <div className="relative">
+        <img
+          src={
+            winner.winnerPhoto ||
+            "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
+          }
+          alt={winner.winnerName}
+          className="w-12 h-12 rounded-full object-cover border-2 border-amber-500"
+        />
+        <div className="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center">
+          <FaTrophy className="text-white text-xs" />
+        </div>
+      </div>
+      <div>
+        <p className="text-white font-semibold">{winner.winnerName}</p>
+        <p className="text-emerald-400 text-sm font-medium">
+          Won ${winner.prizeMoney}
+        </p>
+      </div>
+      <div className="ml-2 px-3 py-1 bg-emerald-500/20 rounded-full">
+        <span className="text-emerald-400 text-xs">
+          {winner.name?.slice(0, 20)}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 const WinnerSection = () => {
   const axiosPublic = useAxios();
 
-  const { data: stats = {} } = useQuery({
+  const { data: stats = {}, isLoading } = useQuery({
     queryKey: ["stats"],
     queryFn: async () => {
       const res = await axiosPublic.get("/stats");
@@ -94,6 +128,11 @@ const WinnerSection = () => {
     },
   ];
 
+  const tickerWinners =
+    recentWinners.length > 0
+      ? [...recentWinners, ...recentWinners, ...recentWinners]
+      : [];
+
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-slate-900 via-emerald-900 to-green-900 relative overflow-hidden">
       <div className="absolute inset-0">
@@ -122,7 +161,7 @@ const WinnerSection = () => {
           </div>
           <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4">
             Our Winners Are
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-400">
               {" "}
               Extraordinary
             </span>
@@ -133,78 +172,79 @@ const WinnerSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
-          {statsData.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="relative group"
-            >
-              <div
-                className={`absolute inset-0 bg-gradient-to-r ${stat.color} rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity`}
-              />
-              <div className="relative bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center">
+        {isLoading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
+            {[...Array(4)].map((_, i) => (
+              <StatsCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
+            {statsData.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group"
+              >
                 <div
-                  className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${stat.color} text-white mb-4`}
-                >
-                  {stat.icon}
-                </div>
-                <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
-                  <AnimatedCounter
-                    end={stat.value}
-                    prefix={stat.prefix || ""}
-                    suffix={stat.suffix || ""}
-                  />
-                </div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {recentWinners.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-white text-center mb-8">
-              <MdCelebration /> Recent Winners
-            </h3>
-            <div className="flex flex-wrap justify-center gap-4">
-              {recentWinners.map((winner, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2"
-                >
-                  <img
-                    src={
-                      winner.winnerPhoto ||
-                      "https://i.ibb.co/MgsTCcv/user-placeholder.jpg"
-                    }
-                    alt={winner.winnerName}
-                    className="w-10 h-10 rounded-full object-cover border-2 border-amber-500"
-                  />
-                  <div>
-                    <p className="text-white font-medium text-sm">
-                      {winner.winnerName}
-                    </p>
-                    <p className="text-amber-400 text-xs">
-                      Won ${winner.prizeMoney}
-                    </p>
+                  className={`absolute inset-0 bg-gradient-to-r ${stat.color} rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity`}
+                />
+                <div className="relative bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center">
+                  <div
+                    className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${stat.color} text-white mb-4`}
+                  >
+                    {stat.icon}
                   </div>
-                </motion.div>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
+                    <AnimatedCounter
+                      end={stat.value}
+                      prefix={stat.prefix || ""}
+                      suffix={stat.suffix || ""}
+                    />
+                  </div>
+                  <div className="text-gray-400 text-sm">{stat.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {tickerWinners.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h3 className="text-xl font-bold text-white text-center mb-6 flex items-center justify-center gap-2">
+              <span className="text-2xl">🎉</span>
+              Recent Winners
+              <span className="text-2xl">🎉</span>
+            </h3>
+
+            <Swiper
+              modules={[Autoplay, FreeMode]}
+              slidesPerView="auto"
+              spaceBetween={16}
+              loop={true}
+              freeMode={true}
+              speed={5000}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+              }}
+              className="winner-ticker"
+            >
+              {tickerWinners.map((winner, index) => (
+                <SwiperSlide key={index} className="!w-auto">
+                  <WinnerTickerCard winner={winner} />
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           </motion.div>
         )}
 
@@ -217,7 +257,7 @@ const WinnerSection = () => {
           <p className="text-gray-400 mb-4">Ready to become a winner?</p>
           <a
             href="/all-contests"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/25"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-500/25"
           >
             <FaTrophy />
             Start Competing Now

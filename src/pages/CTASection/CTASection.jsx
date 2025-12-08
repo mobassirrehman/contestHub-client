@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FaRocket, FaTrophy } from "react-icons/fa";
 import { Link } from "react-router";

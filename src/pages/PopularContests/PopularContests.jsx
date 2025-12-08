@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FaArrowRight, FaFire } from "react-icons/fa";
 import useAxios from "../../hooks/useAxios";
 import ContestCard from "../../components/ContestCard/ContestCard";
-import Loading from "../../components/Loading/Loading";
 // import { FaTrophy } from "react-icons/fa";
 
 const PopularContests = () => {
@@ -18,16 +16,6 @@ const PopularContests = () => {
       return res.data;
     },
   });
-
-  if (isLoading) {
-    return (
-      <section className="py-16 bg-base-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <Loading></Loading>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-16 lg:py-24 bg-base-100">
@@ -62,7 +50,13 @@ const PopularContests = () => {
           </Link>
         </motion.div>
 
-        {contests.length > 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[...Array(6)].map((_, i) => (
+              <ContestCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : contests.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {contests.map((contest, index) => (
               <ContestCard key={contest._id} contest={contest} index={index} />

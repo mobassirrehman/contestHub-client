@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import {
   FaPaintBrush,
