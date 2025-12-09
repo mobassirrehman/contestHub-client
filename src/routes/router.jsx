@@ -15,6 +15,7 @@ import MyProfile from "../pages/Dashboard/User/MyProfile";
 import MyWinning from "../pages/Dashboard/User/MyWinning";
 import CreatorRoute from "./CreatorRoute";
 import AddContest from "../pages/Dashboard/Creator/AddContest";
+import MyCreatedContests from "../pages/Dashboard/Creator/MyCreatedContests";
 
 export const router = createBrowserRouter([
   {
@@ -86,14 +87,14 @@ export const router = createBrowserRouter([
           </CreatorRoute>
         ),
       },
-      // {
-      //   path: "my-created-contests",
-      //   element: (
-      //     <CreatorRoute>
-      //       <MyCreatedContests
-      //     </CreatorRoute>
-      //   ),
-      // },
+      {
+        path: "my-created-contests",
+        element: (
+          <CreatorRoute>
+            <MyCreatedContests></MyCreatedContests>
+          </CreatorRoute>
+        ),
+      },
     ],
   },
   {

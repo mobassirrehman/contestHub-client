@@ -19,7 +19,6 @@ import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-
 const AddContest = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -28,7 +27,7 @@ const AddContest = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deadline, setDeadline] = useState(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  ); 
+  );
   const [imagePreview, setImagePreview] = useState(null);
 
   const {
