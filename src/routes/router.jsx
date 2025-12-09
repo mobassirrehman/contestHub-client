@@ -16,6 +16,7 @@ import MyWinning from "../pages/Dashboard/User/MyWinning";
 import CreatorRoute from "./CreatorRoute";
 import AddContest from "../pages/Dashboard/Creator/AddContest";
 import MyCreatedContests from "../pages/Dashboard/Creator/MyCreatedContests";
+import ContestSubmissions from "../pages/Dashboard/Creator/ContestSubmissions";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,14 @@ export const router = createBrowserRouter([
         element: (
           <CreatorRoute>
             <MyCreatedContests></MyCreatedContests>
+          </CreatorRoute>
+        ),
+      },
+      {
+        path: "contest-submissions/:id",
+        element: (
+          <CreatorRoute>
+            <ContestSubmissions></ContestSubmissions>
           </CreatorRoute>
         ),
       },

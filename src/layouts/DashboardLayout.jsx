@@ -44,11 +44,11 @@ const DashboardLayout = () => {
       icon: <FaClipboardList />,
       label: "My Created Contests",
     },
-    {
-      to: "/dashboard/contest-submissions",
-      icon: <FaTasks />,
-      label: "Contest Submissions",
-    },
+    // {
+    //   to: "/dashboard/contest-submissions",
+    //   icon: <FaTasks />,
+    //   label: "Contest Submissions",
+    // },
   ];
 
   const adminLinks = [
@@ -74,7 +74,7 @@ const DashboardLayout = () => {
           }
         >
           {link.icon}
-          <span className="hidden lg:inline">{link.label}</span>
+          <span>{link.label}</span>
         </NavLink>
       </li>
     ));
@@ -138,7 +138,7 @@ const DashboardLayout = () => {
                   }
                 >
                   <MdDashboard />
-                  <span className="hidden lg:inline">Dashboard</span>
+                  <span>Dashboard</span>
                 </NavLink>
               </li>
 
