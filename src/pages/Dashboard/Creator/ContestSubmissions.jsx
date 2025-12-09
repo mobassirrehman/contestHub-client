@@ -111,7 +111,7 @@ const ContestSubmissions = () => {
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-full md:w-48 h-32 rounded-xl overflow-hidden">
             <img
-              src={contest.image || "https://placehold.co/400x200?text=Contest"}
+              src={contest.image || ""}
               alt={contest.name}
               className="w-full h-full object-cover"
             />
@@ -175,7 +175,7 @@ const ContestSubmissions = () => {
                       <img
                         src={
                           submission.userPhoto ||
-                          "https://i.ibb.co/MgsTCcv/user-placeholder.jpg"
+                          "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
                         }
                         alt={submission.userName}
                         className="w-12 h-12 rounded-full object-cover"
