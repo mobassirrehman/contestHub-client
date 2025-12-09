@@ -13,6 +13,8 @@ import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import MyParticipated from "../pages/Dashboard/User/MyParticipated";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
 import MyWinning from "../pages/Dashboard/User/MyWinning";
+import CreatorRoute from "./CreatorRoute";
+import AddContest from "../pages/Dashboard/Creator/AddContest";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +67,10 @@ export const router = createBrowserRouter([
         Component: MyParticipated,
       },
       {
+        path: "my-participated",
+        Component: MyParticipated,
+      },
+      {
         path: "profile",
         Component: MyProfile,
       },
@@ -72,6 +78,22 @@ export const router = createBrowserRouter([
         path: "my-winning",
         Component: MyWinning,
       },
+      {
+        path: "add-contest",
+        element: (
+          <CreatorRoute>
+            <AddContest></AddContest>
+          </CreatorRoute>
+        ),
+      },
+      // {
+      //   path: "my-created-contests",
+      //   element: (
+      //     <CreatorRoute>
+      //       <MyCreatedContests
+      //     </CreatorRoute>
+      //   ),
+      // },
     ],
   },
   {
