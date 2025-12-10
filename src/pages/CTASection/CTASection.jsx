@@ -60,18 +60,44 @@ const CTASection = () => {
             >
               <Link
                 to="/all-contests"
-                className="btn btn-lg bg-white text-primary hover:bg-gray-100 border-none shadow-lg"
+                className="btn btn-lg btn-cta-primary group"
               >
-                <FaTrophy />
+                <FaTrophy className="group-hover:scale-110 transition-transform" />
                 Browse Contests
               </Link>
-              <Link
-                to="/register"
-                className="btn btn-lg btn-outline border-white text-white hover:bg-white hover:text-primary"
+              <motion.div
+                whileHover="hover"
+                initial="initial"
+                className="group"
               >
-                <FaRocket />
-                Create Account
-              </Link>
+                <Link
+                  to="/register"
+                  className="btn btn-lg btn-cta-outline relative overflow-hidden"
+                >
+                  <motion.span
+                    variants={{
+                      initial: { scaleX: 0 },
+                      hover: { scaleX: 1 },
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    style={{ originX: 0 }}
+                    className="absolute inset-y-0 left-0 w-1/2 bg-white"
+                  />
+                  <motion.span
+                    variants={{
+                      initial: { scaleX: 0 },
+                      hover: { scaleX: 1 },
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    style={{ originX: 1 }}
+                    className="absolute inset-y-0 right-0 w-1/2 bg-white"
+                  />
+                  <span className="relative z-10 flex items-center gap-2 text-white group-hover:text-cyan-600 transition-colors duration-300">
+                    <FaRocket className="group-hover:rotate-12 transition-transform duration-300" />
+                    Create Account
+                  </span>
+                </Link>
+              </motion.div>
             </motion.div>
 
             <motion.div
