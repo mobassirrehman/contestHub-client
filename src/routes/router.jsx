@@ -23,6 +23,7 @@ import AdminRoute from "./AdminRoute";
 import ManageContests from "../pages/Dashboard/Admin/ManageContest";
 import Leaderboard from "../pages/LeaderBoard/LeaderBoard";
 import FAQ from "../pages/FAQ/FAQ";
+import BecomeCreator from "../pages/BecomeCreator/BecomeCreator";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
         path: "faq",
         Component: FAQ,
       },
+      {
+        path: 'become-creator',
+        Component: BecomeCreator
+    }
     ],
   },
   {
