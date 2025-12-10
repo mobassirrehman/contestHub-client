@@ -21,6 +21,7 @@ import EditContest from "../pages/Dashboard/Creator/EditContest";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import ManageContests from "../pages/Dashboard/Admin/ManageContest";
+import Leaderboard from "../pages/LeaderBoard/LeaderBoard";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "payment-success",
         element: <PaymentSuccess></PaymentSuccess>,
+      },
+      {
+        path: "leaderboard",
+        Component: Leaderboard,
       },
     ],
   },
