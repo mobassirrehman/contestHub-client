@@ -18,6 +18,8 @@ import AddContest from "../pages/Dashboard/Creator/AddContest";
 import MyCreatedContests from "../pages/Dashboard/Creator/MyCreatedContests";
 import ContestSubmissions from "../pages/Dashboard/Creator/ContestSubmissions";
 import EditContest from "../pages/Dashboard/Creator/EditContest";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -111,6 +113,14 @@ export const router = createBrowserRouter([
           <CreatorRoute>
             <EditContest></EditContest>
           </CreatorRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
         ),
       },
     ],
