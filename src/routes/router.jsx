@@ -22,6 +22,7 @@ import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import ManageContests from "../pages/Dashboard/Admin/ManageContest";
 import Leaderboard from "../pages/LeaderBoard/LeaderBoard";
+import FAQ from "../pages/FAQ/FAQ";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "leaderboard",
         Component: Leaderboard,
+      },
+      {
+        path: "faq",
+        Component: FAQ,
       },
     ],
   },
