@@ -49,7 +49,7 @@ const HowItWorks = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+          <span className="text-sm font-semibold text-cyan-500 uppercase tracking-wider">
             Simple Process
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold mt-2 mb-4">
@@ -106,10 +106,10 @@ const HowItWorks = () => {
         >
           <Link
             to="/register"
-            className="btn btn-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white gap-2"
+            className="btn btn-lg btn-gradient-primary gap-2 group"
           >
             Get Started Now
-            <FaArrowRight />
+            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
       </div>

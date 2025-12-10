@@ -7,7 +7,7 @@
 }
 
 .btn-gradient-primary {
-  @apply bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none;
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
 }
 
 .btn-gradient-success {
