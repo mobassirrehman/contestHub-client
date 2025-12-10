@@ -1,269 +1,339 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { FaTrophy, FaMedal, FaCrown, FaAward } from "react-icons/fa";
+import {
+  FaTrophy,
+  FaMedal,
+  FaCrown,
+  FaSearch,
+  FaDollarSign,
+  FaUsers,
+  FaAward,
+} from "react-icons/fa";
+import { GiDiamondTrophy } from "react-icons/gi";
 import useAxios from "../../hooks/useAxios";
 import SkeletonLoader from "../../components/Skeletons/Skeletons";
 
 const Leaderboard = () => {
   const axiosPublic = useAxios();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [timeFilter, setTimeFilter] = useState("all");
 
   const { data: leaderboard = [], isLoading } = useQuery({
-    queryKey: ["leaderboard"],
+    queryKey: ["leaderboard", timeFilter],
     queryFn: async () => {
-      const res = await axiosPublic.get("/leaderboard");
+      const res = await axiosPublic.get(`/leaderboard?filter=${timeFilter}`);
       return res.data;
     },
   });
 
-  const getRankStyle = (rank) => {
-    switch (rank) {
-      case 1:
-        return {
-          bg: "bg-gradient-to-r from-amber-600 to-yellow-500",
-          icon: <FaCrown className="text-white" />,
-          border: "border-none",
-          text: "text-white",
-        };
-      case 2:
-        return {
-          bg: "bg-gradient-to-r from-gray-500 to-gray-400",
-          icon: <FaMedal className="text-white" />,
-          border: "border-none",
-          text: "text-white",
-        };
-      case 3:
-        return {
-          bg: "bg-gradient-to-r from-amber-800 to-amber-900",
-          icon: <FaMedal className="text-white" />,
-          border: "border-none",
-          text: "text-white",
-        };
-      default:
-        return {
-          bg: "bg-base-200",
-          icon: <FaAward className="text-gray-400" />,
-          border: "border-none",
-          text: "text-gray-700",
-        };
-    }
+  const filteredLeaderboard = leaderboard.filter(
+    (user) =>
+      user.userName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user._id?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const getBadge = (wins) => {
+    if (wins >= 10)
+      return {
+        name: "Diamond",
+        className: "badge-diamond",
+        icon: <GiDiamondTrophy />,
+      };
+    if (wins >= 5)
+      return {
+        name: "Platinum",
+        className: "badge-platinum",
+        icon: <FaTrophy />,
+      };
+    if (wins >= 3)
+      return { name: "Gold", className: "badge-gold", icon: <FaMedal /> };
+    if (wins >= 2)
+      return { name: "Silver", className: "badge-silver", icon: <FaMedal /> };
+    return { name: "Bronze", className: "badge-bronze", icon: <FaAward /> };
   };
+
+  const getRankStyle = (rank) => {
+    if (rank === 1) return "rank-1";
+    if (rank === 2) return "rank-2";
+    if (rank === 3) return "rank-3";
+    return "bg-base-300 text-gray-600";
+  };
+
+  const getRingColor = (rank) => {
+    if (rank === 1) return "ring-amber-400";
+    if (rank === 2) return "ring-gray-400";
+    if (rank === 3) return "ring-amber-600";
+    return "ring-base-300";
+  };
+
+  const totalWins = leaderboard.reduce((sum, user) => sum + user.winCount, 0);
+  const totalPrize = leaderboard.reduce(
+    (sum, user) => sum + (user.totalPrize || 0),
+    0
+  );
+
+  const timeFilters = [
+    { value: "all", label: "All Time" },
+    { value: "month", label: "This Month" },
+    { value: "week", label: "This Week" },
+  ];
+
+  const badgeLevels = [
+    { name: "Bronze", wins: "1 win", className: "badge-bronze" },
+    { name: "Silver", wins: "2+ wins", className: "badge-silver" },
+    { name: "Gold", wins: "3+ wins", className: "badge-gold" },
+    { name: "Platinum", wins: "5+ wins", className: "badge-platinum" },
+    { name: "Diamond", wins: "10+ wins", className: "badge-diamond" },
+  ];
 
   return (
     <div className="min-h-screen bg-base-100">
-      <div className="bg-gradient-to-br from-cyan-900 via-blue-900 to-emerald-900 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <div className="hero-gradient-primary py-16 md:py-20">
+        <div className="page-container text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-500 to-amber-000 rounded-full mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mb-6">
               <FaTrophy className="text-4xl text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Leaderboard
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Top performers who have conquered the most contests
+              See who's leading the pack in our global contest rankings
             </p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-12 -mt-8">
-        {isLoading ? (
-          <div className="bg-base-100 rounded-2xl shadow-xl p-6 space-y-4">
-            {[...Array(5)].map((_, i) => (
-              <SkeletonLoader key={i} />
-            ))}
+      <div className="content-container py-12 -mt-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
+        >
+          <div className="stat-card">
+            <div className="stat-card-icon icon-bg-cyan">
+              <FaUsers className="text-2xl text-cyan-500" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">{leaderboard.length}</p>
+              <p className="text-sm text-gray-500">Total Winners</p>
+            </div>
           </div>
-        ) : leaderboard.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-base-100 rounded-2xl shadow-xl overflow-hidden"
-          >
-            <div className="bg-gradient-to-r from-green-600 via-cyan-600 to-emerald-600 p-8">
-              <div className="flex items-end justify-center gap-4">
-                {leaderboard[1] && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-center"
-                  >
-                    <div className="relative">
-                      <img
-                        src={
-                          leaderboard[1].userPhoto ||
-                          "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
-                        }
-                        alt={leaderboard[1].userName}
-                        className="w-20 h-20 rounded-full border-4 border-gray-300 mx-auto object-cover"
-                      />
-                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center font-bold text-gray-700">
-                        2
-                      </div>
-                    </div>
-                    <p className="mt-3 font-semibold text-white truncate max-w-[100px]">
-                      {leaderboard[1].userName}
-                    </p>
-                    <p className="text-sm text-gray-200">
-                      {leaderboard[1].winCount} wins
-                    </p>
-                    <div className="h-16 w-20 bg-gray-300/30 rounded-t-lg mt-2"></div>
-                  </motion.div>
-                )}
+          <div className="stat-card">
+            <div className="stat-card-icon icon-bg-amber">
+              <FaTrophy className="text-2xl text-amber-500" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">{totalWins}</p>
+              <p className="text-sm text-gray-500">Total Wins</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-card-icon icon-bg-green">
+              <FaDollarSign className="text-2xl text-green-500" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold">
+                ${totalPrize.toLocaleString()}
+              </p>
+              <p className="text-sm text-gray-500">Prize Distributed</p>
+            </div>
+          </div>
+        </motion.div>
 
-                {leaderboard[0] && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="text-center -mt-8"
-                  >
-                    <FaCrown className="text-4xl text-amber-400 mx-auto mb-2" />
-                    <div className="relative">
-                      <img
-                        src={
-                          leaderboard[0].userPhoto ||
-                          "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
-                        }
-                        alt={leaderboard[0].userName}
-                        className="w-28 h-28 rounded-full border-4 border-amber-400 mx-auto object-cover"
-                      />
-                      <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-amber-400 rounded-full flex items-center justify-center font-bold text-white text-lg">
-                        1
-                      </div>
-                    </div>
-                    <p className="mt-3 font-bold text-white text-lg truncate max-w-[120px]">
-                      {leaderboard[0].userName}
-                    </p>
-                    <p className="text-amber-300 font-semibold">
-                      {leaderboard[0].winCount} wins
-                    </p>
-                    <div className="h-24 w-24 bg-amber-400/30 rounded-t-lg mt-2"></div>
-                  </motion.div>
-                )}
-
-                {leaderboard[2] && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-center"
-                  >
-                    <div className="relative">
-                      <img
-                        src={
-                          leaderboard[2].userPhoto ||
-                          "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
-                        }
-                        alt={leaderboard[2].userName}
-                        className="w-20 h-20 rounded-full border-4 border-amber-600 mx-auto object-cover"
-                      />
-                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center font-bold text-white">
-                        3
-                      </div>
-                    </div>
-                    <p className="mt-3 font-semibold text-white truncate max-w-[100px]">
-                      {leaderboard[2].userName}
-                    </p>
-                    <p className="text-sm text-gray-200">
-                      {leaderboard[2].winCount} wins
-                    </p>
-                    <div className="h-12 w-20 bg-amber-600/30 rounded-t-lg mt-2"></div>
-                  </motion.div>
-                )}
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-base-200 rounded-xl p-4 mb-6"
+        >
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="relative w-full md:w-80">
+              <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search players..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="input input-bordered w-full pl-10"
+              />
             </div>
 
+            <div className="flex bg-base-300 rounded-lg p-1">
+              {timeFilters.map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => setTimeFilter(filter.value)}
+                  className={`filter-tab ${
+                    timeFilter === filter.value
+                      ? "filter-tab-active"
+                      : "filter-tab-inactive"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-base-200 rounded-xl overflow-hidden"
+        >
+          {isLoading ? (
             <div className="p-6">
-              <h3 className="text-lg font-bold mb-4">Full Rankings</h3>
-              <div className="space-y-3">
-                {leaderboard.map((user, index) => {
-                  const rank = index + 1;
-                  const style = getRankStyle(rank);
-
-                  return (
-                    <motion.div
-                      key={user._id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className={`flex items-center gap-4 p-4 rounded-xl border-2 ${
-                        style.border
-                      } ${rank <= 3 ? style.bg : "bg-base-200"}`}
-                    >
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                          rank <= 3
-                            ? "bg-white/20 text-white"
-                            : "bg-base-300 text-gray-600"
-                        }`}
-                      >
-                        {rank <= 3 ? style.icon : rank}
-                      </div>
-
-                      <div className="flex items-center gap-3 flex-1">
-                        <img
-                          src={
-                            user.userPhoto ||
-                            "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
-                          }
-                          alt={user.userName}
-                          className="w-12 h-12 rounded-full object-cover"
-                        />
-                        <div>
-                          <p
-                            className={`font-semibold ${
-                              rank <= 3 ? "text-white" : ""
-                            }`}
-                          >
-                            {user.userName}
-                          </p>
-                          <p
-                            className={`text-sm ${
-                              rank <= 3 ? "text-white/70" : "text-gray-500"
-                            }`}
-                          >
-                            {user._id}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`text-right ${
-                          rank <= 3 ? "text-white" : ""
-                        }`}
-                      >
-                        <p className="text-2xl font-bold">{user.winCount}</p>
-                        <p
-                          className={`text-sm ${
-                            rank <= 3 ? "text-white/70" : "text-gray-500"
-                          }`}
-                        >
-                          {user.winCount === 1 ? "win" : "wins"}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+              <SkeletonLoader type="table" count={10} />
             </div>
-          </motion.div>
-        ) : (
+          ) : filteredLeaderboard.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="table">
+                <thead className="table-header">
+                  <tr>
+                    <th className="text-center">Rank</th>
+                    <th>User</th>
+                    <th className="text-center">Wins</th>
+                    <th className="text-center">Prize Won</th>
+                    <th className="text-center">Badge</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredLeaderboard.map((user, index) => {
+                    const rank = index + 1;
+                    const badge = getBadge(user.winCount);
+
+                    return (
+                      <motion.tr
+                        key={user._id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.03 }}
+                        className={`hover ${rank <= 3 ? "bg-base-100" : ""}`}
+                      >
+                        <td className="text-center">
+                          <div
+                            className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center font-bold ${getRankStyle(
+                              rank
+                            )}`}
+                          >
+                            {rank === 1 ? (
+                              <FaCrown className="text-lg" />
+                            ) : (
+                              rank
+                            )}
+                          </div>
+                        </td>
+
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div
+                                className={`w-12 h-12 rounded-full ring-2 ${getRingColor(
+                                  rank
+                                )}`}
+                              >
+                                <img
+                                  src={
+                                    user.userPhoto ||
+                                    "https://i.ibb.co.com/mC3FBP9V/user-placeholder.jpg"
+                                  }
+                                  alt={user.userName}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <div className="font-semibold">
+                                {user.userName}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {user._id}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="text-center">
+                          <div className="flex flex-col items-center">
+                            <span className="text-xl font-bold text-cyan-600">
+                              {user.winCount}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {user.winCount === 1 ? "win" : "wins"}
+                            </span>
+                          </div>
+                        </td>
+
+                        <td className="text-center">
+                          <span className="font-semibold text-green-600">
+                            ${(user.totalPrize || 0).toLocaleString()}
+                          </span>
+                        </td>
+
+                        <td className="text-center">
+                          <span
+                            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${badge.className}`}
+                          >
+                            {badge.icon}
+                            {badge.name}
+                          </span>
+                        </td>
+                      </motion.tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="text-6xl mb-4">🏆</div>
+              <h3 className="text-xl font-semibold mb-2">
+                {searchTerm ? "No Players Found" : "No Winners Yet"}
+              </h3>
+              <p className="text-gray-500">
+                {searchTerm
+                  ? "Try a different search term"
+                  : "Be the first to win a contest and claim the top spot!"}
+              </p>
+            </div>
+          )}
+        </motion.div>
+
+        {filteredLeaderboard.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-base-100 rounded-2xl shadow-xl p-12 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-4 text-center text-sm text-gray-500"
           >
-            <div className="text-6xl mb-4">🏆</div>
-            <h3 className="text-xl font-semibold mb-2">No Winners Yet</h3>
-            <p className="text-gray-500">
-              Be the first to win a contest and claim the top spot!
-            </p>
+            Showing {filteredLeaderboard.length} of {leaderboard.length} players
           </motion.div>
         )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mt-8 bg-base-200 rounded-xl p-6"
+        >
+          <h3 className="font-bold mb-4 text-center">Badge Levels</h3>
+          <div className="flex flex-wrap justify-center gap-4">
+            {badgeLevels.map((badge) => (
+              <div key={badge.name} className="flex items-center gap-2">
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${badge.className}`}
+                >
+                  {badge.name}
+                </span>
+                <span className="text-sm text-gray-500">{badge.wins}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </div>
   );
