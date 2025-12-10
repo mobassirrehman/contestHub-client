@@ -10,6 +10,7 @@ import {
   FaUser,
   FaChevronLeft,
   FaChevronRight,
+  FaTrash,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -106,42 +107,46 @@ const ManageUsers = () => {
     }
   };
 
-  const handleDeleteUser = async (user) => {
-    if (user.role === "admin") {
+  const handleDelete = async (user) => {
+    if (user.role === "role") {
       Swal.fire({
         icon: "error",
         title: "Cannot Delete",
-        text: "Admin users cannot be deleted.",
+        text: "You cannot delete your own account!",
       });
       return;
     }
 
     const result = await Swal.fire({
       title: "Delete User?",
-      html: `
-                <div class="text-left">
-                    <p class="mb-2">Are you sure you want to delete:</p>
-                    <p class="font-bold">${user.displayName}</p>
-                    <p class="text-gray-500 text-sm">${user.email}</p>
-                    <p class="mt-2 text-sm text-red-500">⚠️ This action cannot be undone!</p>
-                </div>
-            `,
+      text: `Are you sure you want to delete ${
+        user.displayName || user.email
+      }?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#ef4444",
       cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, Delete",
+      confirmButtonText: "Yes, delete!",
     });
 
     if (result.isConfirmed) {
       try {
+        await axiosSecure.delete(`/users/${user._id}`);
         Swal.fire({
-          icon: "info",
-          title: "Feature Note",
-          text: "User deletion requires additional server implementation for safety.",
+          icon: "success",
+          title: "Deleted!",
+          text: "User has been deleted.",
+          showConfirmButton: false,
+          timer: 1500,
         });
+        refetch();
       } catch (error) {
         console.error("Delete error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Failed",
+          text: "Could not delete the user.",
+        });
       }
     }
   };
@@ -179,22 +184,17 @@ const ManageUsers = () => {
         </div>
 
         <form onSubmit={handleSearch} className="flex-1 flex gap-2">
-          <div className="relative flex-1">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-              <FaSearch className="" />
-            </span>
+          <label className="input input-bordered flex items-center gap-2 flex-1">
+            <FaSearch className="text-gray-400" />
             <input
               type="text"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               placeholder="Search by name or email..."
-              className="input input-bordered w-full pl-10"
+              className="grow bg-transparent outline-none"
             />
-          </div>
-          <button
-            type="submit"
-            className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white border-none"
-          >
+          </label>
+          <button type="submit" className="btn btn-gradient-primary">
             Search
           </button>
         </form>
@@ -252,49 +252,65 @@ const ManageUsers = () => {
                         {new Date(user.createdAt).toLocaleDateString()}
                       </td>
                       <td>
-                        <div className="dropdown dropdown-end">
-                          <label tabIndex={0} className="btn btn-sm btn-ghost">
-                            <FaUserEdit />
-                            Change Role
-                          </label>
-                          <ul
-                            tabIndex={0}
-                            className="dropdown-content z-1 menu p-2 shadow bg-base-100 rounded-box w-40"
-                          >
-                            <li>
-                              <button
-                                onClick={() => handleRoleChange(user, "user")}
-                                className={user.role === "user" ? "active" : ""}
-                              >
-                                <FaUser />
-                                User
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                onClick={() =>
-                                  handleRoleChange(user, "creator")
-                                }
-                                className={
-                                  user.role === "creator" ? "active" : ""
-                                }
-                              >
-                                <FaUserTie />
-                                Creator
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                onClick={() => handleRoleChange(user, "admin")}
-                                className={
-                                  user.role === "admin" ? "active" : ""
-                                }
-                              >
-                                <FaUserShield />
-                                Admin
-                              </button>
-                            </li>
-                          </ul>
+                        <div className="flex items-center gap-2">
+                          <div className="dropdown dropdown-end">
+                            <label
+                              tabIndex={0}
+                              className="btn btn-sm btn-ghost"
+                            >
+                              <FaUserEdit />
+                              Change Role
+                            </label>
+                            <ul
+                              tabIndex={0}
+                              className="dropdown-content z-1 menu p-2 shadow bg-base-100 rounded-box w-40"
+                            >
+                              <li>
+                                <button
+                                  onClick={() => handleRoleChange(user, "user")}
+                                  className={
+                                    user.role === "user" ? "active" : ""
+                                  }
+                                >
+                                  <FaUser /> User
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  onClick={() =>
+                                    handleRoleChange(user, "creator")
+                                  }
+                                  className={
+                                    user.role === "creator" ? "active" : ""
+                                  }
+                                >
+                                  <FaUserTie /> Creator
+                                </button>
+                              </li>
+                              <li>
+                                <button
+                                  onClick={() =>
+                                    handleRoleChange(user, "admin")
+                                  }
+                                  className={
+                                    user.role === "admin" ? "active" : ""
+                                  }
+                                >
+                                  <FaUserShield /> Admin
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+
+                          {user.role !== "admin" && (
+                            <button
+                              onClick={() => handleDelete(user)}
+                              className="btn btn-sm btn-ghost text-red-500 hover:bg-red-500/10"
+                              title="Delete User"
+                            >
+                              <FaTrash />
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>

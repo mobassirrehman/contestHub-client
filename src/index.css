@@ -18,12 +18,23 @@
   @apply bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-white border-none;
 }
 
+.btn-gradient-danger {
+  @apply bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white border-none;
+}
 .stat-card {
   @apply bg-base-200 rounded-xl p-5 flex items-center gap-4;
 }
 
 .stat-card-icon {
   @apply p-3 rounded-lg;
+}
+
+.benefit-card {
+  @apply bg-base-100 rounded-2xl p-6 hover:shadow-lg transition-shadow;
+}
+
+.benefit-icon {
+  @apply w-14 h-14 rounded-xl flex items-center justify-center mb-4;
 }
 
 .badge-bronze {
@@ -45,7 +56,6 @@
 .badge-diamond {
   @apply bg-cyan-500 text-white;
 }
-
 
 .hero-gradient-primary {
   @apply bg-gradient-to-br from-slate-900 via-cyan-900 to-blue-900;
@@ -85,4 +95,55 @@
 
 .filter-tab-inactive {
   @apply hover:bg-base-100;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold mb-4;
+}
+
+.section-subtitle {
+  @apply text-gray-500 max-w-2xl mx-auto;
+}
+
+.form-label {
+  @apply font-medium;
+}
+
+.form-error {
+  @apply text-error;
+}
+.page-container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.content-container {
+  @apply max-w-6xl mx-auto px-4;
+}
+
+.form-container {
+  @apply max-w-2xl mx-auto px-4;
+}
+
+.icon-bg-cyan {
+  @apply bg-cyan-500/10;
+}
+
+.icon-bg-amber {
+  @apply bg-amber-500/10;
+}
+
+.icon-bg-green {
+  @apply bg-green-500/10;
+}
+
+.icon-bg-blue {
+  @apply bg-blue-500/10;
+}
+
+.icon-bg-purple {
+  @apply bg-purple-500/10;
+}
+
+.icon-bg-red {
+  @apply bg-red-500/10;
 }

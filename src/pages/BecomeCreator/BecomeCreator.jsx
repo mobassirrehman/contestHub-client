@@ -9,8 +9,6 @@ import {
   FaChartLine,
   FaCheckCircle,
   FaPaperPlane,
-  FaLightbulb,
-  FaPalette,
   FaUsers,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -32,24 +30,32 @@ const BecomeCreator = () => {
 
   const benefits = [
     {
-      icon: <FaTrophy className="text-3xl text-amber-500" />,
+      icon: <FaTrophy />,
+      iconBg: "bg-amber-500/10",
+      iconColor: "text-amber-500",
       title: "Host Contests",
       description:
         "Create and manage your own contests across multiple categories",
     },
     {
-      icon: <FaDollarSign className="text-3xl text-green-500" />,
+      icon: <FaDollarSign />,
+      iconBg: "bg-green-500/10",
+      iconColor: "text-green-500",
       title: "Earn Revenue",
       description:
         "Set entry fees and prize pools that work for your community",
     },
     {
-      icon: <FaChartLine className="text-3xl text-blue-500" />,
+      icon: <FaChartLine />,
+      iconBg: "bg-cyan-500/10",
+      iconColor: "text-cyan-500",
       title: "Track Analytics",
       description: "Monitor participation, submissions, and engagement metrics",
     },
     {
-      icon: <FaUsers className="text-3xl text-purple-500" />,
+      icon: <FaUsers />,
+      iconBg: "bg-blue-500/10",
+      iconColor: "text-blue-500",
       title: "Build Community",
       description: "Connect with talented participants and grow your following",
     },
@@ -121,7 +127,7 @@ const BecomeCreator = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-md w-full bg-base-200 rounded-2xl p-8 text-center"
         >
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-500/10 flex items-center justify-center">
             <FaCheckCircle className="text-4xl text-green-500" />
           </div>
           <h2 className="text-2xl font-bold mb-2">
@@ -132,7 +138,7 @@ const BecomeCreator = () => {
           </p>
           <button
             onClick={() => navigate("/dashboard/add-contest")}
-            className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+            className="btn btn-gradient-primary"
           >
             <FaTrophy />
             Create a Contest
@@ -144,12 +150,12 @@ const BecomeCreator = () => {
 
   return (
     <div className="min-h-screen bg-base-100">
-      <div className="bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 py-16 md:py-24">
+      <div className="hero-gradient-primary py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-3xl mx-auto text-center">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
             >
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
                 <FaUserTie className="text-cyan-400" />
@@ -157,15 +163,15 @@ const BecomeCreator = () => {
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                 Become a{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
                   Contest Creator
                 </span>
               </h1>
-              <p className="text-lg text-white/70 mb-8">
+              <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
                 Turn your ideas into engaging contests. Host competitions,
                 discover talent, and build a community around your passion.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap justify-center gap-6">
                 <div className="flex items-center gap-2 text-white/80">
                   <FaCheckCircle className="text-green-400" />
                   <span>Free to apply</span>
@@ -178,36 +184,6 @@ const BecomeCreator = () => {
                   <FaCheckCircle className="text-green-400" />
                   <span>Full support</span>
                 </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="hidden lg:flex justify-center items-center relative"
-            >
-              <div className="relative w-80 h-80">
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute top-0 left-1/2 -translate-x-1/2 p-6 bg-white/10 backdrop-blur-sm rounded-2xl"
-                >
-                  <FaTrophy className="text-5xl text-amber-400" />
-                </motion.div>
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                  className="absolute bottom-0 left-0 p-6 bg-white/10 backdrop-blur-sm rounded-2xl"
-                >
-                  <FaPalette className="text-5xl text-pink-400" />
-                </motion.div>
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-                  className="absolute bottom-0 right-0 p-6 bg-white/10 backdrop-blur-sm rounded-2xl"
-                >
-                  <FaLightbulb className="text-5xl text-yellow-400" />
-                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -239,9 +215,15 @@ const BecomeCreator = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-base-100 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow"
+                className="bg-base-100 rounded-2xl p-6 hover:shadow-lg transition-shadow"
               >
-                <div className="mb-4">{benefit.icon}</div>
+                <div
+                  className={`w-14 h-14 ${benefit.iconBg} rounded-xl flex items-center justify-center mb-4`}
+                >
+                  <span className={`text-2xl ${benefit.iconColor}`}>
+                    {benefit.icon}
+                  </span>
+                </div>
                 <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
                 <p className="text-gray-500 text-sm">{benefit.description}</p>
               </motion.div>
@@ -297,7 +279,7 @@ const BecomeCreator = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-base-100 rounded-2xl p-8"
+            className="bg-base-100 rounded-2xl p-8 shadow-lg"
           >
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold mb-2">Apply Now</h2>
@@ -417,7 +399,7 @@ const BecomeCreator = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none w-full"
+                className="btn btn-gradient-primary w-full"
               >
                 {isSubmitting ? (
                   <>

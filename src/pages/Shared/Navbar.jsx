@@ -46,6 +46,26 @@ const NavBar = () => {
           Leaderboard
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/faq"
+          className={({ isActive }) =>
+            isActive ? "text-cyan-500 font-semibold" : ""
+          }
+        >
+          FAQ
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/become-creator"
+          className={({ isActive }) =>
+            isActive ? "text-cyan-500 font-semibold" : ""
+          }
+        >
+          Become Creator
+        </NavLink>
+      </li>
     </>
   );
 
