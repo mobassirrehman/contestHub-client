@@ -41,11 +41,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "contest/:id",
-        element: <ContestDetails></ContestDetails>,
+        element: (
+          <PrivateRoute>
+            <ContestDetails></ContestDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment-success",
-        element: <PaymentSuccess></PaymentSuccess>,
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess></PaymentSuccess>
+          </PrivateRoute>
+        ),
       },
       {
         path: "leaderboard",
@@ -56,9 +64,9 @@ export const router = createBrowserRouter([
         Component: FAQ,
       },
       {
-        path: 'become-creator',
-        Component: BecomeCreator
-    }
+        path: "become-creator",
+        Component: BecomeCreator,
+      },
     ],
   },
   {
