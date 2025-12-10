@@ -366,7 +366,9 @@ const ManageContests = () => {
                     key={i}
                     onClick={() => setCurrentPage(i + 1)}
                     className={`btn btn-sm ${
-                      currentPage === i + 1 ? "btn-primary" : "btn-ghost"
+                      currentPage === i + 1
+                        ? "btn bg-blue-500 text-white"
+                        : "btn-ghost"
                     }`}
                   >
                     {i + 1}
