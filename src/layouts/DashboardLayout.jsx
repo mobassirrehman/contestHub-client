@@ -30,7 +30,7 @@ const DashboardLayout = () => {
       icon: <FaTrophy />,
       label: "My Winning Contests",
     },
-    { to: "/dashboard/profile", icon: <FaUser />, label: "My Profile" },
+    { to: "/dashboard/my-profile", icon: <FaUser />, label: "My Profile" },
   ];
 
   const creatorLinks = [

@@ -287,8 +287,8 @@ const ContestDetails = () => {
                 transition={{ delay: 0.2 }}
                 className={`rounded-2xl p-6 ${
                   hasSubmitted
-                    ? "bg-green-50 border border-green-200"
-                    : "bg-yellow-50 border border-yellow-200"
+                    ? "bg-green-500/10 border border-green-500/30"
+                    : "bg-amber-500/10 border border-amber-500/30"
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -301,7 +301,7 @@ const ContestDetails = () => {
                     <h3 className="font-bold">
                       {hasSubmitted ? "Task Submitted" : "Submission Pending"}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-base-content/70">
                       {hasSubmitted
                         ? `Submitted on ${new Date(
                             participant.submittedAt
@@ -311,11 +311,13 @@ const ContestDetails = () => {
                   </div>
                 </div>
                 {hasSubmitted && (
-                  <div className="mt-4 p-4 bg-white rounded-xl">
-                    <p className="text-sm text-gray-500 mb-1">
+                  <div className="mt-4 p-4 bg-base-200 rounded-xl">
+                    <p className="text-sm text-base-content/60 mb-1">
                       Your Submission:
                     </p>
-                    <p className="text-gray-700">{participant.submittedTask}</p>
+                    <p className="text-base-content">
+                      {participant.submittedTask}
+                    </p>
                   </div>
                 )}
               </motion.div>
@@ -460,8 +462,9 @@ const ContestDetails = () => {
             </motion.div>
 
             {isRegistered && !hasSubmitted && !isEnded && (
-              <p className="text-center items-center text-sm text-gray-500">
-                <FaCheck></FaCheck> You are registered for this contest
+              <p className="flex items-center justify-center gap-2 text-sm text-base-content/60">
+                <FaCheck className="text-green-500" /> You are registered for
+                this contest
               </p>
             )}
           </div>

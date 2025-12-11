@@ -100,7 +100,7 @@ export const router = createBrowserRouter([
         Component: MyParticipated,
       },
       {
-        path: "profile",
+        path: "my-profile",
         Component: MyProfile,
       },
       {
