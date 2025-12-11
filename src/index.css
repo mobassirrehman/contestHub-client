@@ -155,3 +155,23 @@
 .icon-bg-red {
   @apply bg-red-500/10;
 }
+
+.newsletter-gradient {
+  @apply bg-gradient-to-r from-cyan-600 to-blue-600;
+}
+
+.newsletter-input {
+  @apply bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 focus:border-white/40;
+}
+
+.footer-link {
+  @apply text-gray-400 hover:text-cyan-400 transition-colors text-sm;
+}
+
+.footer-heading {
+  @apply text-lg font-semibold mb-4 text-white;
+}
+
+.social-btn {
+  @apply btn btn-sm btn-circle bg-base-100 border-none transition-colors;
+}
