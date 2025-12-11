@@ -460,7 +460,7 @@ const ContestDetails = () => {
             </motion.div>
 
             {isRegistered && !hasSubmitted && !isEnded && (
-              <p className="text-center text-sm text-gray-500">
+              <p className="text-center items-center text-sm text-gray-500">
                 <FaCheck></FaCheck> You are registered for this contest
               </p>
             )}

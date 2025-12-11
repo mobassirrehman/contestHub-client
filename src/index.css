@@ -1,6 +1,25 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.font-display {
+  font-family: "Montserrat", sans-serif;
+}
 /* Swiper infinite ticker */
 .winner-ticker .swiper-wrapper {
   transition-timing-function: linear !important;
@@ -165,13 +184,21 @@
 }
 
 .footer-link {
-  @apply text-gray-400 hover:text-cyan-400 transition-colors text-sm;
+  @apply text-base-content/70 hover:text-cyan-500 transition-colors text-sm;
 }
 
 .footer-heading {
-  @apply text-lg font-semibold mb-4 text-white;
+  @apply text-lg font-semibold mb-4 text-base-content;
 }
 
 .social-btn {
   @apply btn btn-sm btn-circle bg-base-100 border-none transition-colors;
+}
+
+.nav-link {
+  @apply px-4 py-2 rounded-lg text-base-content/70 hover:bg-gray-500/10 transition-all duration-200 font-medium;
+}
+
+.nav-link-active {
+  @apply text-gray-500 bg-gray-500/10;
 }
