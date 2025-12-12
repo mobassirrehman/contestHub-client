@@ -49,6 +49,10 @@ h6 {
   @apply bg-gradient-to-r from-cyan-500 to-[#9177C7] 
   hover:from-cyan-600 hover:to-[#8e65d6] text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
 }
+.btn-gradient-primary-static {
+  @apply bg-gradient-to-r from-cyan-500 to-[#9177C7] 
+  hover:from-cyan-600 hover:to-[#8e65d6] text-white border-none;
+}
 
 .btn-gradient-success {
   @apply bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white border-none;
@@ -106,7 +110,7 @@ h6 {
 }
 
 .hero-gradient-primary {
-  @apply bg-gradient-to-br from-slate-900 via-cyan-900 to-blue-900;
+  @apply bg-gradient-to-br from-cyan-900 via-blue-900 to-[#4a3a6e];
 }
 
 .hero-gradient-success {

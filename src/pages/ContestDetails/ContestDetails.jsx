@@ -91,6 +91,7 @@ const ContestDetails = () => {
   const isEnded = !timeLeft;
   const hasWinner = !!contest.winnerEmail;
   const hasSubmitted = !!participant?.submittedTask;
+  const isOwnContest = contest?.creatorEmail === user?.email;
 
   const handlePayment = async () => {
     if (!user) {
@@ -328,14 +329,22 @@ const ContestDetails = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-cyan-900 via-blue-900 to-cyan-900 rounded-2xl p-6 text-white"
+              className="bg-gradient-to-br from-emerald-700 via-blue-800 to-cyan-900 rounded-2xl p-6 text-white"
             >
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <FaClock />
-                {isEnded ? "Contest Ended" : "Time Remaining"}
+                {hasWinner
+                  ? "Contest Completed"
+                  : isEnded
+                  ? "Contest Ended"
+                  : "Time Remaining"}
               </h3>
 
-              {isEnded ? (
+              {hasWinner ? (
+                <p className="text-center text-green-400 py-4 flex items-center justify-center gap-2">
+                  <FaTrophy /> Winner has been declared
+                </p>
+              ) : isEnded ? (
                 <p className="text-center text-gray-300 py-4">
                   This contest has ended
                 </p>
@@ -424,6 +433,10 @@ const ContestDetails = () => {
               ) : hasWinner ? (
                 <button disabled className="btn btn-lg w-full btn-disabled">
                   Winner Declared
+                </button>
+              ) : isOwnContest ? (
+                <button disabled className="btn btn-lg w-full btn-disabled">
+                  Cannot Join Own Contest
                 </button>
               ) : isRegistered ? (
                 hasSubmitted ? (

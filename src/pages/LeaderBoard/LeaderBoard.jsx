@@ -95,7 +95,7 @@ const Leaderboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-cyan-500 to-purple-400 rounded-full mb-6">
               <FaTrophy className="text-4xl text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -170,7 +170,7 @@ const Leaderboard = () => {
                   onClick={() => setTimeFilter(filter.value)}
                   className={`filter-tab ${
                     timeFilter === filter.value
-                      ? "filter-tab-active"
+                      ? "bg-gradient-to-r from-cyan-600 to-[#9177C7] text-white"
                       : "filter-tab-inactive"
                   }`}
                 >

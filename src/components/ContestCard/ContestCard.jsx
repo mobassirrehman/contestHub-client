@@ -26,14 +26,14 @@ const ContestCard = ({ contest, index = 0 }) => {
 
   const getBadge = () => {
     if (participantsCount >= 100)
-      return { text: "Hot", icon: <FaFire />, color: "bg-red-500" };
+      return { text: "Hot", icon: <FaFire />, color: "bg-red-500/70" };
     if (participantsCount >= 50)
-      return { text: "Trending", icon: <FaStar />, color: "bg-purple-500" };
+      return { text: "Trending", icon: <FaStar />, color: "bg-emerald-500/70" };
     if (index === 0)
       return {
         text: "Editor's Pick",
         icon: <FaTrophy />,
-        color: "bg-amber-500",
+        color: "bg-amber-500/70",
       };
     return null;
   };
@@ -60,7 +60,7 @@ const ContestCard = ({ contest, index = 0 }) => {
       <div className="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-base-200 h-full">
         <figure className="relative h-48 overflow-hidden">
           <img
-            src={image || "https://placehold.co/400x300?text=Contest"}
+            src={image || ""}
             alt={name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
@@ -78,7 +78,7 @@ const ContestCard = ({ contest, index = 0 }) => {
 
           <div
             className={`absolute top-3 left-3 ${
-              isEnded ? "bg-gray-600" : "bg-black/60 backdrop-blur-sm"
+              isEnded ? "bg-gray-600/60" : "bg-black/60 backdrop-blur-sm"
             } text-white text-xs px-3 py-1.5 rounded-full flex items-center gap-1.5`}
           >
             <FaClock className={isEnded ? "" : "text-amber-400"} />
@@ -93,7 +93,7 @@ const ContestCard = ({ contest, index = 0 }) => {
         </figure>
 
         <div className="card-body p-5">
-          <h3 className="card-title text-lg font-bold line-clamp-1 group-hover:text-purple-300/50 transition-colors">
+          <h3 className="card-title text-lg font-bold line-clamp-1 group-hover:text-purple-500/50 transition-colors">
             {name}
           </h3>
 
@@ -120,7 +120,7 @@ const ContestCard = ({ contest, index = 0 }) => {
               </span>
             </div>
 
-            <div className="flex items-center gap-1 text-amber-500 font-bold">
+            <div className="flex items-center gap-1 text-amber-500/90 font-bold">
               <FaTrophy />
               <span>${prizeMoney || 0}</span>
             </div>

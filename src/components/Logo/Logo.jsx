@@ -6,7 +6,7 @@ const Logo = () => {
       <span className="text-2xl">🏆</span>
       <span className="text-2xl font-bold font-display tracking-tight">
         Contest
-        <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-cyan-500 to-[#9177C7] bg-clip-text text-transparent">
           Hub
         </span>
       </span>

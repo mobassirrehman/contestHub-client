@@ -48,7 +48,7 @@ const PopularContests = () => {
           >
             <Link
               to="/all-contests"
-              className="btn btn-outline border-2 border-cyan-500 text-cyan-500 relative overflow-hidden"
+              className="btn btn-outline border-2 border-cyan-500 text-cyan-500 hover:border-cyan-400/20 relative overflow-hidden"
             >
               <motion.span
                 variants={{
@@ -57,16 +57,7 @@ const PopularContests = () => {
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{ originX: 0 }}
-                className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500"
-              />
-              <motion.span
-                variants={{
-                  initial: { scaleX: 0 },
-                  hover: { scaleX: 1 },
-                }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                style={{ originX: 1 }}
-                className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500"
+                className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-[#9177C7]"
               />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-300">
                 View All Contests
@@ -107,7 +98,7 @@ const PopularContests = () => {
         >
           <Link
             to="/all-contests"
-            className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 btn-wide"
+            className="btn btn-gradient-primary group-hover:translate-x-1 transition-transform"
           >
             Show All Contests
             <FaArrowRight />
