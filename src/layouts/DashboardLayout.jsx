@@ -44,11 +44,6 @@ const DashboardLayout = () => {
       icon: <FaClipboardList />,
       label: "My Created Contests",
     },
-    // {
-    //   to: "/dashboard/contest-submissions",
-    //   icon: <FaTasks />,
-    //   label: "Contest Submissions",
-    // },
   ];
 
   const adminLinks = [

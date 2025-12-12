@@ -230,7 +230,7 @@ const ContestSubmissions = () => {
                   <p className="text-sm text-gray-500 mb-2 font-medium">
                     Submission:
                   </p>
-                  <div className="text-gray-700">
+                  <div className="text-base-content">
                     {submission.submittedTask?.startsWith("http") ? (
                       <a
                         href={submission.submittedTask}

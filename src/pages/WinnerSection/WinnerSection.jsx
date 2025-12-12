@@ -8,10 +8,6 @@ import {
   FaMedal,
   FaCrown,
 } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/free-mode";
 import useAxios from "../../hooks/useAxios";
 import SkeletonLoader from "../../components/Skeletons/Skeletons";
 
@@ -222,25 +218,13 @@ const WinnerSection = () => {
               <span className="text-2xl">🎉</span>
             </h3>
 
-            <Swiper
-              modules={[Autoplay, FreeMode]}
-              slidesPerView="auto"
-              spaceBetween={16}
-              loop={true}
-              freeMode={true}
-              speed={5000}
-              autoplay={{
-                delay: 0,
-                disableOnInteraction: false,
-              }}
-              className="winner-ticker"
-            >
-              {tickerWinners.map((winner, index) => (
-                <SwiperSlide key={index} className="!w-auto">
-                  <WinnerTickerCard winner={winner} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <div className="overflow-hidden">
+              <div className="flex gap-4 animate-marquee hover:[animation-play-state:paused]">
+                {[...tickerWinners, ...tickerWinners].map((winner, index) => (
+                  <WinnerTickerCard key={index} winner={winner} />
+                ))}
+              </div>
+            </div>
           </motion.div>
         )}
 

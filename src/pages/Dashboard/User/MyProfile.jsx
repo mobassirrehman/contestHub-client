@@ -84,6 +84,7 @@ const MyProfile = () => {
       await axiosSecure.patch(`/users/${user.email}`, {
         displayName: data.displayName,
         photoURL: photoURL,
+        bio: data.bio || "",
       });
 
       Swal.fire({
@@ -263,11 +264,28 @@ const MyProfile = () => {
                 </span>
               </label>
             </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Bio</span>
+              </label>
+              <textarea
+                {...register("bio")}
+                defaultValue={profile.bio || ""}
+                placeholder="Tell us about yourself, your skills, and interests..."
+                className="textarea textarea-bordered w-full min-h-[100px]"
+                rows={3}
+              />
+              <label className="label">
+                <span className="label-text-alt text-base-content/60">
+                  Share a brief description about yourself
+                </span>
+              </label>
+            </div>
 
             <div className="bg-base-300 rounded-lg p-4">
               <p className="text-sm text-gray-500">
                 Member since{" "}
-                <span className="font-medium text-gray-700">
+                <span className="font-medium text-base-content/70">
                   {new Date(profile.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
