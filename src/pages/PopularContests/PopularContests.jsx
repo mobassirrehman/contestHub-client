@@ -5,7 +5,6 @@ import { FaArrowRight, FaFire } from "react-icons/fa";
 import useAxios from "../../hooks/useAxios";
 import ContestCard from "../../components/ContestCard/ContestCard";
 import SkeletonLoader from "../../components/Skeletons/Skeletons";
-// import { FaTrophy } from "react-icons/fa";
 
 const PopularContests = () => {
   const axiosPublic = useAxios();
@@ -42,13 +41,39 @@ const PopularContests = () => {
             </p>
           </div>
 
-          <Link
-            to="/all-contests"
-            className="btn btn-outline hover:bg-gradient-to-r from-cyan-500 to-blue-500 hover:text-white group self-start md:self-auto"
+          <motion.div
+            whileHover="hover"
+            initial="initial"
+            className="group self-start md:self-auto"
           >
-            View All Contests
-            <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+            <Link
+              to="/all-contests"
+              className="btn btn-outline border-2 border-cyan-500 text-cyan-500 relative overflow-hidden"
+            >
+              <motion.span
+                variants={{
+                  initial: { scaleX: 0 },
+                  hover: { scaleX: 1 },
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                style={{ originX: 0 }}
+                className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500"
+              />
+              <motion.span
+                variants={{
+                  initial: { scaleX: 0 },
+                  hover: { scaleX: 1 },
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                style={{ originX: 1 }}
+                className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500"
+              />
+              <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-300">
+                View All Contests
+                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {isLoading ? (

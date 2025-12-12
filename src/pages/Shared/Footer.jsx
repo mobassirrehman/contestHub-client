@@ -99,7 +99,7 @@ const Footer = () => {
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-md sm:btn-lg bg-white text-cyan-600 hover:bg-gray-100 border-none"
+                  className="btn btn-md sm:btn-lg bg-white text-cyan-600 hover:bg-gray-100 border-none shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                 >
                   {subscribed ? (
                     <>

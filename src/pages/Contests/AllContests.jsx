@@ -106,7 +106,7 @@ const AllContests = () => {
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium rounded-lg transition-all"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 btn-gradient-primary text-white font-medium rounded-lg transition-all"
                 >
                   Search
                 </button>
@@ -137,7 +137,7 @@ const AllContests = () => {
                 onClick={() => handleTabChange(category.id)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
                   activeTab === category.id
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25"
+                    ? "btn-gradient-primary text-white shadow-lg shadow-cyan-500/25"
                     : "bg-base-200 text-gray-600 hover:bg-base-300"
                 }`}
               >
@@ -171,7 +171,7 @@ const AllContests = () => {
                   <span>
                     {" "}
                     in{" "}
-                    <span className="font-semibold text-cyan-600 capitalize">
+                    <span className="font-semibold text-[#9177C7] capitalize">
                       {activeTab.replace("-", " ")}
                     </span>
                   </span>

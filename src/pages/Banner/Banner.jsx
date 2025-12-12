@@ -139,7 +139,7 @@ const Banner = () => {
                 />
                 <button
                   type="submit"
-                  className="m-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
+                  className="m-2 px-6 py-3 btn-gradient-primary text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
                 >
                   Search
                 </button>

@@ -1,12 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
 body {
   font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -15,11 +14,23 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
 }
+
 .font-display {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
 }
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+.font-grotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -35,7 +46,8 @@ h6 {
 }
 
 .btn-gradient-primary {
-  @apply bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
+  @apply bg-gradient-to-r from-cyan-500 to-[#9177C7] 
+  hover:from-cyan-600 hover:to-[#8e65d6] text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
 }
 
 .btn-gradient-success {

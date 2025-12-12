@@ -151,7 +151,7 @@ const WinnerSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <FaCrown />
             Hall of Fame
           </div>
