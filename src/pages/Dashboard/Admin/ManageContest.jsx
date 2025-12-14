@@ -199,7 +199,6 @@ const ManageContests = () => {
         className="mb-8"
       >
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-          <FaTrophy className="text-cyan-500" />
           Manage Contests
         </h1>
         <p className="text-gray-500 mt-1">

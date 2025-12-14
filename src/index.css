@@ -1,12 +1,7 @@
-@import "tailwindcss";
-@plugin "daisyui";
-
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-body {
-  font-family: "Inter", sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+@import "tailwindcss";
+@plugin "daisyui";
 
 h1,
 h2,
@@ -16,6 +11,31 @@ h5,
 h6 {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 600;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-theme="light"] {
+  --b1: 241 245 249;
+  --b2: 255 255 255;
+  --b3: 226 232 240;
+}
+
+[data-theme="dark"] {
+  --b1: 15 23 42;
+  --b2: 30 41 59;
+  --b3: 51 65 85;
+}
+
+[data-theme="dark"] .navbar {
+  @apply bg-slate-900/30 backdrop-blur-lg;
+}
+
+.navbar {
+  @apply bg-base-100/30 backdrop-blur-lg;
 }
 
 .font-display {
@@ -46,12 +66,11 @@ h6 {
 }
 
 .btn-gradient-primary {
-  @apply bg-gradient-to-r from-cyan-500 to-[#9177C7] 
-  hover:from-cyan-600 hover:to-[#8e65d6] text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
+  @apply bg-gradient-to-r from-cyan-500 to-purple-400/80 
+  hover:from-cyan-600 hover:to-purple-500/80 text-white border-none hover:shadow-lg hover:scale-105 transition-all duration-300;
 }
 .btn-gradient-primary-static {
-  @apply bg-gradient-to-r from-cyan-500 to-[#9177C7] 
-  hover:from-cyan-600 hover:to-[#8e65d6] text-white border-none;
+  @apply bg-gradient-to-r from-cyan-500 to-purple-400 text-white border-none;
 }
 
 .btn-gradient-success {
@@ -221,9 +240,25 @@ h6 {
 }
 
 .nav-link {
-  @apply px-4 py-2 rounded-lg text-base-content/70 hover:bg-gray-500/10 transition-all duration-200 font-medium;
+  @apply px-4 py-2 rounded-lg text-base-content/70 hover:bg-gray-500/30 transition-all duration-200 font-medium;
 }
 
 .nav-link-active {
-  @apply text-gray-500 bg-gray-500/10;
+  @apply text-gray-500 bg-gray-500/30;
+}
+/* Glassmorphism Dropdowns */
+.nav-dropdown {
+  @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-2xl;
+}
+
+[data-theme="dark"] .nav-dropdown {
+  @apply bg-slate-900/70 backdrop-blur-xl border-slate-700/50;
+}
+
+.profile-dropdown {
+  @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-2xl;
+}
+
+[data-theme="dark"] .profile-dropdown {
+  @apply bg-slate-900/70 backdrop-blur-xl border-slate-700/50;
 }

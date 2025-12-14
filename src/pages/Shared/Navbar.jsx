@@ -57,7 +57,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-50 p-4 rounded-2xl w-56 nav-dropdown"
           >
             {navLinks}
           </ul>
@@ -90,7 +90,7 @@ const NavBar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content mt-3 z-1 p-3 shadow-xl bg-base-100 rounded-2xl w-64 border border-base-200"
+              className="dropdown-content mt-3 z-50 p-4 rounded-2xl w-64 profile-dropdown"
             >
               <li className="px-3 py-3 border-b border-base-200 mb-2">
                 <div className="flex items-center gap-3 hover:bg-transparent cursor-default">
@@ -118,7 +118,7 @@ const NavBar = () => {
               <li>
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-2 rounded-lg hover:bg-gray-500/10 hover:text-gray-500"
+                  className="flex items-center gap-2 rounded-lg hover:bg-gray-500/30"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ const NavBar = () => {
               <li>
                 <Link
                   to="/dashboard/my-profile"
-                  className="flex items-center gap-2 rounded-lg hover:bg-gray-500/10 hover:text-gray-500"
+                  className="flex items-center gap-2 rounded-lg hover:bg-gray-500/30"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@ const NavBar = () => {
               <li className="mt-2 pt-2 border-t border-base-200">
                 <button
                   onClick={handleLogOut}
-                  className="flex items-center gap-2 rounded-lg text-red-500 hover:bg-red-500/10"
+                  className="flex items-center gap-2 rounded-lg text-red-500 hover:bg-red-500/30"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

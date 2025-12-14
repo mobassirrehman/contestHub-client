@@ -125,7 +125,6 @@ const AddContest = () => {
         className="mb-8"
       >
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-          <FaTrophy className="text-cyan-500" />
           Create New Contest
         </h1>
         <p className="text-gray-500 mt-1">
@@ -142,7 +141,7 @@ const AddContest = () => {
         <form onSubmit={handleSubmit(handleAddContest)} className="space-y-6">
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Contest Name *</span>
+              <span className="label-text font-medium">Contest Name</span>
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -174,7 +173,7 @@ const AddContest = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Contest Image *</span>
+              <span className="label-text font-medium">Contest Image</span>
             </label>
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
@@ -220,7 +219,7 @@ const AddContest = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Contest Type *</span>
+                <span className="label-text font-medium">Contest Type</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -253,7 +252,7 @@ const AddContest = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Deadline *</span>
+                <span className="label-text font-medium">Deadline</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 z-10">
@@ -274,7 +273,7 @@ const AddContest = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Entry Fee ($) *</span>
+                <span className="label-text font-medium">Entry Fee ($)</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -305,9 +304,7 @@ const AddContest = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">
-                  Prize Money ($) *
-                </span>
+                <span className="label-text font-medium">Prize Money ($)</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -339,7 +336,7 @@ const AddContest = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Description *</span>
+              <span className="label-text font-medium">Description</span>
             </label>
             <div className="relative">
               <span className="absolute top-3 left-3 text-gray-400">
@@ -370,9 +367,7 @@ const AddContest = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">
-                Task Instructions *
-              </span>
+              <span className="label-text font-medium">Task Instructions</span>
             </label>
             <div className="relative">
               <span className="absolute top-3 left-3 text-gray-400">
@@ -401,7 +396,7 @@ const AddContest = () => {
             )}
           </div>
 
-          <div className="alert alert-info">
+          <div className="alert alert-info btn-gradient-primary-static">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -423,7 +418,7 @@ const AddContest = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none w-full"
+            className="btn btn-gradient-primary w-full"
           >
             {isSubmitting ? (
               <>

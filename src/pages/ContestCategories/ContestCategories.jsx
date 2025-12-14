@@ -15,54 +15,48 @@ const ContestCategories = () => {
       name: "Image Design",
       slug: "image-design",
       icon: <FaPaintBrush />,
-      color: "from-pink-500 to-rose-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400",
+      color: "from-pink-500/70 to-rose-500/70",
+      bgImage: "https://i.ibb.co.com/LDLhyBSq/image-design.avif",
       count: "45+ Contests",
     },
     {
       name: "Article Writing",
       slug: "article-writing",
       icon: <FaPen />,
-      color: "from-blue-500 to-cyan-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400",
+      color: "from-blue-500/80 to-cyan-500/80",
+      bgImage: "https://i.ibb.co.com/LhNYqVZ4/article-writing.avif",
       count: "32+ Contests",
     },
     {
       name: "Gaming Review",
       slug: "gaming-review",
       icon: <FaGamepad />,
-      color: "from-purple-500 to-violet-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400",
+      color: "from-purple-500/80 to-violet-500/80",
+      bgImage: "https://i.ibb.co.com/ynPfw06Q/gaming-review.avif",
       count: "28+ Contests",
     },
     {
       name: "Marketing Strategy",
       slug: "marketing-strategy",
       icon: <FaBullhorn />,
-      color: "from-orange-500 to-amber-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=400",
+      color: "from-orange-500/80 to-amber-500/80",
+      bgImage: "https://i.ibb.co.com/3yR4WPkC/marketing-strategy.avif",
       count: "21+ Contests",
     },
     {
       name: "Web Development",
       slug: "web-development",
       icon: <FaCode />,
-      color: "from-green-500 to-emerald-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400",
+      color: "from-green-500/80 to-emerald-500/80",
+      bgImage: "https://i.ibb.co.com/KzQVvyNq/web-developement.avif",
       count: "38+ Contests",
     },
     {
       name: "Photography",
       slug: "photography",
       icon: <FaCamera />,
-      color: "from-red-500 to-pink-500",
-      bgImage:
-        "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400",
+      color: "from-red-500/80 to-pink-500/80",
+      bgImage: "https://i.ibb.co.com/gL2ZK8pt/photography.avif",
       count: "25+ Contests",
     },
   ];

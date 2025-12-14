@@ -170,7 +170,7 @@ const Leaderboard = () => {
                   onClick={() => setTimeFilter(filter.value)}
                   className={`filter-tab ${
                     timeFilter === filter.value
-                      ? "bg-gradient-to-r from-cyan-600 to-[#9177C7] text-white"
+                      ? "btn-gradient-primary-static text-white"
                       : "filter-tab-inactive"
                   }`}
                 >

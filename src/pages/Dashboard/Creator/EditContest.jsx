@@ -172,7 +172,6 @@ const EditContest = () => {
         className="mb-8"
       >
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-          <FaTrophy className="text-cyan-500" />
           Edit Contest
         </h1>
         <p className="text-gray-500 mt-1">Update your contest details</p>
@@ -190,7 +189,7 @@ const EditContest = () => {
         >
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Contest Name *</span>
+              <span className="label-text font-medium">Contest Name</span>
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -260,7 +259,7 @@ const EditContest = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Contest Type *</span>
+                <span className="label-text font-medium">Contest Type</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -293,7 +292,7 @@ const EditContest = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Deadline *</span>
+                <span className="label-text font-medium">Deadline</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 z-10">
@@ -314,7 +313,7 @@ const EditContest = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Entry Fee ($) *</span>
+                <span className="label-text font-medium">Entry Fee ($)</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -345,7 +344,7 @@ const EditContest = () => {
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">
-                  Prize Money ($) *
+                  Prize Money ($)
                 </span>
               </label>
               <div className="relative">
@@ -377,7 +376,7 @@ const EditContest = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Description *</span>
+              <span className="label-text font-medium">Description</span>
             </label>
             <div className="relative">
               <span className="absolute top-3 left-3 text-gray-400">
@@ -409,7 +408,7 @@ const EditContest = () => {
           <div className="form-control">
             <label className="label">
               <span className="label-text font-medium">
-                Task Instructions *
+                Task Instructions
               </span>
             </label>
             <div className="relative">

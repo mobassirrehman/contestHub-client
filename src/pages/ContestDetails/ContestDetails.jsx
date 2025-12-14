@@ -92,6 +92,7 @@ const ContestDetails = () => {
   const hasWinner = !!contest.winnerEmail;
   const hasSubmitted = !!participant?.submittedTask;
   const isOwnContest = contest?.creatorEmail === user?.email;
+  const isAdmin = user?.role === "admin";
 
   const handlePayment = async () => {
     if (!user) {
@@ -434,6 +435,10 @@ const ContestDetails = () => {
                 <button disabled className="btn btn-lg w-full btn-disabled">
                   Winner Declared
                 </button>
+              ) : isAdmin ? (
+                <button disabled className="btn btn-lg w-full btn-disabled">
+                  Admins Cannot Participate
+                </button>
               ) : isOwnContest ? (
                 <button disabled className="btn btn-lg w-full btn-disabled">
                   Cannot Join Own Contest
@@ -450,7 +455,7 @@ const ContestDetails = () => {
                 ) : (
                   <button
                     onClick={() => setIsSubmitModalOpen(true)}
-                    className="btn btn-lg w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+                    className="btn btn-lg w-full btn-gradient-primary text-white border-none"
                   >
                     <FaPaperPlane />
                     Submit Your Task
@@ -460,7 +465,7 @@ const ContestDetails = () => {
                 <button
                   onClick={handlePayment}
                   disabled={isPaying}
-                  className="btn btn-lg w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+                  className="btn btn-lg w-full btn-gradient-primary text-white border-none"
                 >
                   {isPaying ? (
                     <span className="loading loading-spinner"></span>
@@ -522,7 +527,7 @@ const ContestDetails = () => {
               <button
                 onClick={handleSubmitTask}
                 disabled={isSubmitting || !submittedTask.trim()}
-                className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+                className="btn btn-gradient-primary-static text-white border-none"
               >
                 {isSubmitting ? (
                   <span className="loading loading-spinner"></span>

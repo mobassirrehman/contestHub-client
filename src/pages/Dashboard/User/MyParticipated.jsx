@@ -185,7 +185,7 @@ const MyParticipated = () => {
             </p>
             <Link
               to="/all-contests"
-              className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+              className="btn btn-gradient-primary text-white border-none"
             >
               Browse Contests
             </Link>

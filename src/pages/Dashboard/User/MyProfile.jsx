@@ -143,7 +143,7 @@ const MyProfile = () => {
         transition={{ delay: 0.1 }}
         className="bg-base-200 rounded-2xl overflow-hidden"
       >
-        <div className="h-32 bg-gradient-to-r from-cyan-500 to-blue-500 relative">
+        <div className="h-32 bg-gradient-to-r from-cyan-500 to-purple-500/80 relative">
           <div className="absolute -bottom-16 left-6">
             <div className="relative">
               <img
@@ -298,7 +298,7 @@ const MyProfile = () => {
             <button
               type="submit"
               disabled={isUpdating}
-              className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none w-full"
+              className="btn btn-gradient-primary w-full"
             >
               {isUpdating ? (
                 <>

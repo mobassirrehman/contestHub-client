@@ -62,7 +62,6 @@ const MyWinning = () => {
         className="mb-8"
       >
         <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-          <FaTrophy className="text-amber-500" />
           My Winning Contests
         </h1>
         <p className="text-gray-500 mt-1">
@@ -194,7 +193,7 @@ const MyWinning = () => {
             </p>
             <Link
               to="/all-contests"
-              className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+              className="btn btn-gradient-primary"
             >
               Find Contests
             </Link>

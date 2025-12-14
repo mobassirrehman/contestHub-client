@@ -99,7 +99,7 @@ const PaymentSuccess = () => {
             <div className="flex flex-col gap-3">
               <Link
                 to={`/contest/${contestId}`}
-                className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+                className="btn btn-gradient-primary text-white border-none"
               >
                 View Contest
                 <FaArrowRight />
@@ -130,7 +130,7 @@ const PaymentSuccess = () => {
               {contestId && (
                 <Link
                   to={`/contest/${contestId}`}
-                  className="btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border-none"
+                  className="btn btn-gradient-primary text-white border-none"
                 >
                   Try Again
                 </Link>
