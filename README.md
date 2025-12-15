@@ -1,16 +1,49 @@
-# React + Vite
+# 🏆 ContestHub - Creative Contest Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-stack contest management platform where users can create, discover, participate in, and manage creative contests across multiple categories.
 
-Currently, two official plugins are available:
+## 🌐 Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**[ContestHub Live]()**
 
-## React Compiler
+## 🔑 Admin Credentials
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Email:**
+- **Password:** 
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Multi-Role System** - Three distinct user roles (Admin, Creator, User) with role-based dashboards and permissions
+
+2. **Secure Payment Integration** - Stripe payment gateway for contest registration with secure checkout flow
+
+3. **Real-time Contest Management** - Live countdown timers, automatic status updates, and deadline tracking
+
+4. **Dynamic Leaderboard** - Rankings based on contest wins with badge system (Bronze to Diamond)
+
+5. **Advanced Search & Filtering** - Search contests by name, filter by categories with tab navigation
+
+6. **Fully Responsive Design** - Mobile, tablet, and desktop optimized including dashboard layouts
+
+7. **Dark/Light Theme Toggle** - Theme preference saved in localStorage, persists after refresh
+
+8. **JWT Authentication** - Secure API routes with Firebase Auth and JWT token verification
+
+9. **Interactive Dashboards** - Visual statistics with charts, win percentages, and participation tracking
+
+10. **Contest Creator Tools** - Create contests with deadlines, prize money, task instructions, and declare winners
+
+## 🛠️ Technologies Used
+
+- **Frontend:** React 19, React Router 7, TailwindCSS, DaisyUI
+- **State Management:** TanStack Query
+- **Forms:** React Hook Form
+- **Animations:** Framer Motion
+- **Charts:** Recharts
+- **Authentication:** Firebase Auth
+- **Payments:** Stripe
+- **HTTP Client:** Axios
+
+---
+
+© 2025 ContestHub. Made by TheGrim
