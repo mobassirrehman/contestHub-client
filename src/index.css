@@ -244,7 +244,7 @@ body {
 }
 
 .nav-link-active {
-  @apply text-gray-500 bg-gray-500/30;
+  @apply text-gray-900 bg-gray-500/30;
 }
 /* Glassmorphism Dropdowns */
 .nav-dropdown {

@@ -224,10 +224,17 @@ const Footer = () => {
       <div className="border-t border-base-100">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-            <p className="flex items-center gap-1">
-              © {new Date().getFullYear()} ContestHub. Made by TheGrim with
-              <FaRegHeart className="mx-1" />
-              All rights reserved.
+                        <p className="flex flex-wrap items-center justify-center gap-1 text-center sm:text-left sm:justify-start">
+              <span>© {new Date().getFullYear()} ContestHub.</span>
+              <span>Made by TheGrim</span>
+
+              <span className="inline-flex items-center gap-1">
+                <span>with</span>
+                <FaRegHeart className="mt-0.5 sm:mt-0" />
+              </span>
+              
+
+              <span>All rights reserved.</span>
             </p>
             <div className="flex items-center gap-6">
               <Link

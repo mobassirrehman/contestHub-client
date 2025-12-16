@@ -17,7 +17,7 @@ const NotFound = () => {
         <div className="mt-8">
           <Link
             to="/"
-            className="btn text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 gap-2"
+            className="btn text-white btn-gradient-primary gap-2"
           >
             <FaHome />
             Back to Home

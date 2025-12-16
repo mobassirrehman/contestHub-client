@@ -122,30 +122,30 @@ const Banner = () => {
           </motion.p>
 
           <motion.form
-            variants={itemVariants}
-            onSubmit={handleSearch}
-            className="max-w-2xl mx-auto mb-10"
-          >
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-emerald-500 to-blue-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
-              <div className="relative flex items-center bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 overflow-hidden">
-                <FaSearch className="ml-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search contests by type (e.g., Design, Writing, Gaming...)"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-4 py-4 bg-transparent text-white placeholder-gray-400 focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="m-2 px-6 py-3 btn-gradient-primary text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          </motion.form>
+  variants={itemVariants}
+  onSubmit={handleSearch}
+  className="max-w-2xl mx-auto mb-10 px-2 sm:px-0"
+>
+  <div className="relative group">
+    <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-emerald-500 to-blue-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
+    <div className="relative flex items-center bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 overflow-hidden pr-2">
+      <FaSearch className="ml-4 sm:ml-5 text-gray-400 flex-shrink-0" />
+      <input
+        type="text"
+        placeholder="Search contests..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="flex-1 px-3 sm:px-4 py-4 bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm sm:text-base min-w-0"
+      />
+      <button
+        type="submit"
+        className="px-4 sm:px-6 py-2 sm:py-3 btn-gradient-primary text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base flex-shrink-0"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+</motion.form>
 
           <motion.div
             variants={itemVariants}
