@@ -4,12 +4,12 @@ A modern, full-stack contest management platform where users can create, discove
 
 ## 🌐 Live Site
 
-**[ContestHub Live]()**
+**[ContestHub Live](https://contesthub-contest-platform.netlify.app/)**
 
 ## 🔑 Admin Credentials
 
-- **Email:**
-- **Password:** 
+- **Email:** zehad@gmail.com
+- **Password:** Abcd1234@
 
 ## ✨ Key Features
 
