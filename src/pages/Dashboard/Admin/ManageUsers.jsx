@@ -335,7 +335,7 @@ const ManageUsers = () => {
                     onClick={() => setCurrentPage(i + 1)}
                     className={`btn btn-sm ${
                       currentPage === i + 1
-                        ? "btn bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600"
+                        ? "btn btn-gradient-primary"
                         : "btn-ghost"
                     }`}
                   >
@@ -357,7 +357,7 @@ const ManageUsers = () => {
           </>
         ) : (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">
+            <div className="text-6xl mb-4 flex items-center justify-center">
               <FaUsers></FaUsers>{" "}
             </div>
             <h3 className="text-xl font-semibold mb-2">No Users Found</h3>
