@@ -6,6 +6,9 @@ A modern, full-stack contest management platform where users can create, discove
 
 **[ContestHub Live](https://contesthub-contest-platform.netlify.app/)**
 
+## 📸 Screenshots
+
+![ContestHub Homepage](https://i.ibb.co.com/rKJH2vqv/contesthub-home.png)
 ## 🔑 Admin Credentials
 
 - **Email:** zehad@gmail.com
@@ -44,6 +47,52 @@ A modern, full-stack contest management platform where users can create, discove
 - **Payments:** Stripe
 - **HTTP Client:** Axios
 
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Firebase account
+- MongoDB Atlas account
+- Stripe account
+
+### Local Development
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/mobassirrehman/contestHub-client.git
+cd contestHub-client
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Create environment variables**
+
+Create a `.env.local` file:
+```env
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+VITE_API_URL=http://localhost:5000
+```
+
+4. **Start development server**
+```bash
+npm run dev
+```
+
+5. **Open in browser**
+```
+http://localhost:5173
+```
+
+### Server Setup
+
+For the backend API, visit: [ContestHub Server Repository](https://github.com/mobassirrehman/contestHub-server)
 ---
 
 © 2025 ContestHub. Made by TheGrim
