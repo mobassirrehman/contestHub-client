@@ -24,6 +24,8 @@ import ManageContests from "../pages/Dashboard/Admin/ManageContest";
 import Leaderboard from "../pages/LeaderBoard/LeaderBoard";
 import FAQ from "../pages/FAQ/FAQ";
 import BecomeCreator from "../pages/BecomeCreator/BecomeCreator";
+import About from "../pages/About/About";
+import Contact from "../pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ export const router = createBrowserRouter([
       {
         path: "become-creator",
         Component: BecomeCreator,
+      },
+      {
+        path: "about",
+        Component: About,
+      },
+      {
+        path: "contact",
+        Component: Contact,
       },
     ],
   },
