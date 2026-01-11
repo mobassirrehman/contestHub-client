@@ -27,9 +27,9 @@ import {
   Cell,
   Legend,
 } from "recharts";
-import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
-import useRole from "../hooks/useRole";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useRole from "../../hooks/useRole";
 
 const DashboardHome = () => {
   const { user } = useAuth();

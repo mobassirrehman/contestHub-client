@@ -26,6 +26,7 @@ import FAQ from "../pages/FAQ/FAQ";
 import BecomeCreator from "../pages/BecomeCreator/BecomeCreator";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
+import DashboardHome from "../pages/Dashboard/DashBoardHome";
 
 export const router = createBrowserRouter([
   {
@@ -103,7 +104,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: MyParticipated,
+        Component: DashboardHome,
       },
       {
         path: "my-participated",

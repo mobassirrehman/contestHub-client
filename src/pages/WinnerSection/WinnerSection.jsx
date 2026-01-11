@@ -218,11 +218,20 @@ const WinnerSection = () => {
               <span className="text-2xl">🎉</span>
             </h3>
 
-            <div className="overflow-hidden">
-              <div className="flex gap-4 animate-marquee hover:[animation-play-state:paused]">
-                {[...tickerWinners, ...tickerWinners].map((winner, index) => (
-                  <WinnerTickerCard key={index} winner={winner} />
-                ))}
+            {/* ADDED: Wrapper with fading edges */}
+            <div className="relative">
+              {/* Left Fading Edge */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-r from-emerald-900 via-emerald-900/80 to-transparent z-10 pointer-events-none" />
+
+              {/* Right Fading Edge */}
+              <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-emerald-900 via-emerald-900/80 to-transparent z-10 pointer-events-none" />
+
+              <div className="overflow-hidden">
+                <div className="flex gap-4 animate-marquee hover:[animation-play-state:paused]">
+                  {[...tickerWinners, ...tickerWinners].map((winner, index) => (
+                    <WinnerTickerCard key={index} winner={winner} />
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
