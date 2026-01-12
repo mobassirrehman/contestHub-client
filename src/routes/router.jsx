@@ -27,6 +27,8 @@ import BecomeCreator from "../pages/BecomeCreator/BecomeCreator";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
 import DashboardHome from "../pages/Dashboard/DashBoardHome";
+import Terms from "../pages/Terms/Terms";
+import Privacy from "../pages/Privacy/Privacy";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +79,14 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "terms",
+        Component: Terms,
+      },
+      {
+        path: "privacy",
+        Component: Privacy,
       },
     ],
   },

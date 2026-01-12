@@ -34,7 +34,6 @@ import useRole from "../../hooks/useRole";
 const DashboardHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  // Fixed: useRole returns an object, not an array
   const { role } = useRole();
 
   // Fetch user's participation data
@@ -60,7 +59,7 @@ const DashboardHome = () => {
   // Calculate stats
   const totalParticipated = participatedContests.length;
   const totalSubmitted = participatedContests.filter(
-    (c) => c.submissionStatus === "submitted"
+    (c) => c.submittedTask
   ).length;
   const totalWon = winningData.length;
   const totalEarnings = winningData.reduce(
@@ -74,28 +73,24 @@ const DashboardHome = () => {
       title: "Contests Joined",
       value: totalParticipated,
       icon: FaClipboardList,
-      color: "cyan",
       gradient: "from-cyan-500 to-blue-500",
     },
     {
       title: "Submissions",
       value: totalSubmitted,
       icon: FaPaperPlane,
-      color: "purple",
       gradient: "from-purple-500 to-pink-500",
     },
     {
       title: "Contests Won",
       value: totalWon,
       icon: FaTrophy,
-      color: "amber",
       gradient: "from-amber-500 to-orange-500",
     },
     {
       title: "Total Earnings",
       value: `$${totalEarnings.toLocaleString()}`,
       icon: FaDollarSign,
-      color: "emerald",
       gradient: "from-emerald-500 to-green-500",
     },
   ];
@@ -190,7 +185,7 @@ const DashboardHome = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-2xl lg:text-3xl font-bold mb-2">
-              {getGreeting()}, {user?.displayName?.split(" ")[0] || "User"}! 👋
+              {getGreeting()}, {user?.displayName?.split(" ")[0] || "User"}!
             </h1>
             <p className="text-white/80">
               Welcome back to your dashboard. Here's what's happening with your
@@ -218,16 +213,16 @@ const DashboardHome = () => {
           <motion.div
             key={index}
             variants={itemVariants}
-            className="stat-card group hover:-translate-y-1"
+            className="bg-base-200 rounded-2xl p-5 flex items-center gap-4 hover:shadow-lg transition-shadow"
           >
             <div
-              className={`stat-card-icon bg-gradient-to-br ${stat.gradient} text-white`}
+              className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-white shadow-lg`}
             >
               <stat.icon className="text-xl" />
             </div>
-            <div className="flex-1">
-              <p className="stat-card-label">{stat.title}</p>
-              <p className="stat-card-value">{stat.value}</p>
+            <div>
+              <p className="text-sm text-base-content/60">{stat.title}</p>
+              <p className="text-2xl font-bold">{stat.value}</p>
             </div>
           </motion.div>
         ))}
@@ -240,7 +235,7 @@ const DashboardHome = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="feature-card"
+          className="bg-base-200 rounded-2xl p-6"
         >
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -290,7 +285,7 @@ const DashboardHome = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="feature-card"
+          className="bg-base-200 rounded-2xl p-6"
         >
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -354,7 +349,7 @@ const DashboardHome = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="lg:col-span-2 feature-card"
+          className="lg:col-span-2 bg-base-200 rounded-2xl p-6"
         >
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -384,13 +379,16 @@ const DashboardHome = () => {
                 </thead>
                 <tbody>
                   {recentContests.map((contest, index) => (
-                    <tr key={index} className="hover:bg-base-200/50">
+                    <tr key={index} className="hover:bg-base-300/50">
                       <td>
                         <div className="flex items-center gap-3">
                           <div className="avatar hidden sm:block">
                             <div className="w-10 h-10 rounded-xl">
                               <img
-                                src={contest.contestImage || "/placeholder.jpg"}
+                                src={
+                                  contest.contestImage ||
+                                  "https://placehold.co/100x100?text=Contest"
+                                }
                                 alt={contest.contestName}
                               />
                             </div>
@@ -408,22 +406,28 @@ const DashboardHome = () => {
                       <td>
                         <span
                           className={`badge badge-sm ${
-                            contest.submissionStatus === "submitted"
+                            contest.isWinner
                               ? "badge-success"
+                              : contest.submittedTask
+                              ? "badge-info"
                               : "badge-warning"
                           }`}
                         >
-                          {contest.submissionStatus || "Pending"}
+                          {contest.isWinner
+                            ? "Winner"
+                            : contest.submittedTask
+                            ? "Submitted"
+                            : "Pending"}
                         </span>
                       </td>
                       <td className="text-sm text-base-content/60 hidden sm:table-cell">
                         <div className="flex items-center gap-1">
                           <FaCalendarAlt className="text-xs" />
-                          {new Date(contest.registeredAt).toLocaleDateString()}
+                          {new Date(contest.createdAt).toLocaleDateString()}
                         </div>
                       </td>
                       <td className="font-medium text-emerald-500">
-                        ${contest.prizeMoney?.toLocaleString()}
+                        ${contest.prizeMoney?.toLocaleString() || 0}
                       </td>
                     </tr>
                   ))}
@@ -448,7 +452,7 @@ const DashboardHome = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="feature-card"
+          className="bg-base-200 rounded-2xl p-6"
         >
           <h3 className="text-lg font-bold mb-4">Quick Actions</h3>
           <div className="space-y-3">
@@ -456,7 +460,7 @@ const DashboardHome = () => {
               <Link
                 key={index}
                 to={action.link}
-                className="flex items-center gap-4 p-3 rounded-xl hover:bg-base-200 transition-colors group"
+                className="flex items-center gap-4 p-3 rounded-xl hover:bg-base-300 transition-colors group"
               >
                 <div
                   className={`p-3 rounded-xl bg-${action.color}-500/10 group-hover:bg-${action.color}-500/20 transition-colors`}
@@ -483,12 +487,6 @@ const DashboardHome = () => {
                 <p className="text-sm text-base-content/60 mt-1">
                   You have contests ending soon. Don't forget to submit!
                 </p>
-                <Link
-                  to="/dashboard/my-participated"
-                  className="text-sm text-cyan-500 hover:underline mt-2 inline-block"
-                >
-                  View pending submissions →
-                </Link>
               </div>
             </div>
           </div>

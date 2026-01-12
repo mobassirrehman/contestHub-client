@@ -1,501 +1,207 @@
-import { Link } from "react-router";
-import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { NavLink, Outlet, Link } from "react-router";
+import { useState } from "react";
 import {
-  FaTrophy,
+  FaTachometerAlt,
   FaClipboardList,
-  FaPaperPlane,
-  FaDollarSign,
-  FaArrowRight,
-  FaPlus,
-  FaSearch,
-  FaChartLine,
-  FaClock,
-  FaMedal,
-  FaCalendarAlt,
+  FaTrophy,
+  FaUser,
+  FaPlusCircle,
+  FaFolderOpen,
+  FaUsers,
+  FaCheckCircle,
+  FaHome,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-} from "recharts";
-import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import Logo from "../components/Logo/Logo";
+import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import useRole from "../hooks/useRole";
 
-const DashboardHome = () => {
-  const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
-  // Fixed: useRole returns an object, not an array
-  const { role } = useRole();
+const DashboardLayout = () => {
+  const { role, isLoading } = useRole();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Fetch user's participation data
-  const { data: participatedContests = [] } = useQuery({
-    queryKey: ["participated", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/participants/${user?.email}`);
-      return res.data;
+  // Menu items based on role
+  const userMenuItems = [
+    {
+      to: "/dashboard",
+      icon: FaTachometerAlt,
+      label: "Dashboard",
+      end: true,
     },
-    enabled: !!user?.email,
-  });
+  ];
 
-  // Fetch user's winning data
-  const { data: winningData = [] } = useQuery({
-    queryKey: ["winnings", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/winners/${user?.email}`);
-      return res.data;
+  const participantMenuItems = [
+    {
+      to: "/dashboard/my-participated",
+      icon: FaClipboardList,
+      label: "My Participated Contests",
     },
-    enabled: !!user?.email,
-  });
+    {
+      to: "/dashboard/my-winning",
+      icon: FaTrophy,
+      label: "My Winning Contests",
+    },
+    {
+      to: "/dashboard/my-profile",
+      icon: FaUser,
+      label: "My Profile",
+    },
+  ];
 
-  // Calculate stats
-  const totalParticipated = participatedContests.length;
-  const totalSubmitted = participatedContests.filter(
-    (c) => c.submissionStatus === "submitted"
-  ).length;
-  const totalWon = winningData.length;
-  const totalEarnings = winningData.reduce(
-    (sum, win) => sum + (win.prizeMoney || 0),
-    0
+  const creatorMenuItems = [
+    {
+      to: "/dashboard/add-contest",
+      icon: FaPlusCircle,
+      label: "Add Contest",
+    },
+    {
+      to: "/dashboard/my-created-contests",
+      icon: FaFolderOpen,
+      label: "My Created Contests",
+    },
+  ];
+
+  const adminMenuItems = [
+    {
+      to: "/dashboard/manage-users",
+      icon: FaUsers,
+      label: "Manage Users",
+    },
+    {
+      to: "/dashboard/manage-contests",
+      icon: FaCheckCircle,
+      label: "Manage Contests",
+    },
+  ];
+
+  const NavItem = ({ item }) => (
+    <li>
+      <NavLink
+        to={item.to}
+        end={item.end}
+        onClick={() => setSidebarOpen(false)}
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+            isActive
+              ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-500 font-medium border-l-4 border-cyan-500"
+              : "text-base-content/70 hover:bg-base-200 hover:text-base-content"
+          }`
+        }
+      >
+        <item.icon className="text-lg flex-shrink-0" />
+        <span className="truncate">{item.label}</span>
+      </NavLink>
+    </li>
   );
 
-  // Stats cards data
-  const statsCards = [
-    {
-      title: "Contests Joined",
-      value: totalParticipated,
-      icon: FaClipboardList,
-      color: "cyan",
-      gradient: "from-cyan-500 to-blue-500",
-    },
-    {
-      title: "Submissions",
-      value: totalSubmitted,
-      icon: FaPaperPlane,
-      color: "purple",
-      gradient: "from-purple-500 to-pink-500",
-    },
-    {
-      title: "Contests Won",
-      value: totalWon,
-      icon: FaTrophy,
-      color: "amber",
-      gradient: "from-amber-500 to-orange-500",
-    },
-    {
-      title: "Total Earnings",
-      value: `$${totalEarnings.toLocaleString()}`,
-      icon: FaDollarSign,
-      color: "emerald",
-      gradient: "from-emerald-500 to-green-500",
-    },
-  ];
+  const MenuSection = ({ title, items }) => (
+    <div className="mb-6">
+      <h3 className="text-xs font-semibold text-base-content/40 uppercase tracking-wider px-4 mb-2">
+        {title}
+      </h3>
+      <ul className="space-y-1">
+        {items.map((item) => (
+          <NavItem key={item.to} item={item} />
+        ))}
+      </ul>
+    </div>
+  );
 
-  // Monthly activity data for bar chart
-  const monthlyData = [
-    { month: "Jan", participated: 4, won: 1 },
-    { month: "Feb", participated: 6, won: 2 },
-    { month: "Mar", participated: 8, won: 1 },
-    { month: "Apr", participated: 5, won: 2 },
-    { month: "May", participated: 9, won: 3 },
-    { month: "Jun", participated: 7, won: 2 },
-  ];
-
-  // Category breakdown for pie chart
-  const categoryData = [
-    { name: "Image Design", value: 35, color: "#ec4899" },
-    { name: "Article Writing", value: 25, color: "#8b5cf6" },
-    { name: "Web Dev", value: 20, color: "#06b6d4" },
-    { name: "Gaming", value: 12, color: "#f59e0b" },
-    { name: "Photography", value: 8, color: "#10b981" },
-  ];
-
-  // Recent contests (from participated)
-  const recentContests = participatedContests.slice(0, 5);
-
-  // Quick actions based on role
-  const quickActions = [
-    {
-      title: "Browse Contests",
-      description: "Find new competitions",
-      icon: FaSearch,
-      link: "/all-contests",
-      color: "cyan",
-    },
-    {
-      title: "My Submissions",
-      description: "View your entries",
-      icon: FaClipboardList,
-      link: "/dashboard/my-participated",
-      color: "purple",
-    },
-    {
-      title: "Leaderboard",
-      description: "Check rankings",
-      icon: FaMedal,
-      link: "/leaderboard",
-      color: "amber",
-    },
-    ...(role === "creator" || role === "admin"
-      ? [
-          {
-            title: "Create Contest",
-            description: "Host a new competition",
-            icon: FaPlus,
-            link: "/dashboard/add-contest",
-            color: "emerald",
-          },
-        ]
-      : []),
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  // Get greeting based on time
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good Morning";
-    if (hour < 18) return "Good Afternoon";
-    return "Good Evening";
-  };
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-base-100">
+        <span className="loading loading-spinner loading-lg text-cyan-500"></span>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      {/* Welcome Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-cyan-500 to-purple-500 rounded-2xl p-6 lg:p-8 text-white"
+    <div className="min-h-screen bg-base-100 flex">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-base-100 border-r border-base-200 flex flex-col z-50 transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
       >
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl lg:text-3xl font-bold mb-2">
-              {getGreeting()}, {user?.displayName?.split(" ")[0] || "User"}! 👋
-            </h1>
-            <p className="text-white/80">
-              Welcome back to your dashboard. Here's what's happening with your
-              contests.
-            </p>
+        {/* Sidebar Header */}
+        <div className="p-4 border-b border-base-200 flex items-center justify-between">
+          <Logo />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="btn btn-ghost btn-sm btn-square lg:hidden"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <FaTimes />
+            </button>
           </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto p-4">
+          {/* Dashboard Link */}
+          <ul className="space-y-1 mb-6">
+            {userMenuItems.map((item) => (
+              <NavItem key={item.to} item={item} />
+            ))}
+          </ul>
+
+          {/* User Section - Available to all */}
+          <MenuSection title="User" items={participantMenuItems} />
+
+          {/* Creator Section */}
+          {(role === "creator" || role === "admin") && (
+            <MenuSection title="Creator" items={creatorMenuItems} />
+          )}
+
+          {/* Admin Section */}
+          {role === "admin" && (
+            <MenuSection title="Admin" items={adminMenuItems} />
+          )}
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="p-4 border-t border-base-200">
           <Link
-            to="/all-contests"
-            className="btn bg-white/20 hover:bg-white/30 border-none text-white backdrop-blur-sm"
+            to="/"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-base-content/70 hover:bg-base-200 hover:text-base-content transition-colors"
           >
-            <FaSearch />
-            Find Contests
+            <FaHome className="text-lg" />
+            <span>Back to Home</span>
           </Link>
         </div>
-      </motion.div>
+      </aside>
 
-      {/* Stats Cards */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
-      >
-        {statsCards.map((stat, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            className="stat-card group hover:-translate-y-1"
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-h-screen">
+        {/* Mobile Header */}
+        <header className="lg:hidden sticky top-0 z-30 bg-base-100 border-b border-base-200 px-4 py-3 flex items-center justify-between">
+          <button
+            className="btn btn-ghost btn-sm btn-square"
+            onClick={() => setSidebarOpen(true)}
           >
-            <div
-              className={`stat-card-icon bg-gradient-to-br ${stat.gradient} text-white`}
-            >
-              <stat.icon className="text-xl" />
-            </div>
-            <div className="flex-1">
-              <p className="stat-card-label">{stat.title}</p>
-              <p className="stat-card-value">{stat.value}</p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            <FaBars className="text-xl" />
+          </button>
+          <Logo />
+          <ThemeToggle />
+        </header>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Bar Chart - Monthly Activity */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="feature-card"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-bold">Monthly Activity</h3>
-              <p className="text-sm text-base-content/60">
-                Your contest participation over time
-              </p>
-            </div>
-            <FaChartLine className="text-2xl text-cyan-500" />
-          </div>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={monthlyData}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#374151"
-                opacity={0.3}
-              />
-              <XAxis dataKey="month" stroke="#9ca3af" fontSize={12} />
-              <YAxis stroke="#9ca3af" fontSize={12} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1f2937",
-                  border: "none",
-                  borderRadius: "12px",
-                  color: "#fff",
-                }}
-              />
-              <Legend />
-              <Bar
-                dataKey="participated"
-                fill="#06b6d4"
-                name="Participated"
-                radius={[4, 4, 0, 0]}
-              />
-              <Bar
-                dataKey="won"
-                fill="#f59e0b"
-                name="Won"
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Pie Chart - Category Breakdown */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="feature-card"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-bold">Category Breakdown</h3>
-              <p className="text-sm text-base-content/60">
-                Contests by category type
-              </p>
-            </div>
-            <FaTrophy className="text-2xl text-amber-500" />
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <ResponsiveContainer
-              width="100%"
-              height={200}
-              className="sm:w-[60%]"
-            >
-              <PieChart>
-                <Pie
-                  data={categoryData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#1f2937",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="flex-1 space-y-2 w-full sm:w-auto">
-              {categoryData.map((item, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm">
-                  <span
-                    className="w-3 h-3 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-base-content/70">{item.name}</span>
-                  <span className="ml-auto font-medium">{item.value}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Recent Contests & Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Contests Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="lg:col-span-2 feature-card"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-bold">Recent Contests</h3>
-              <p className="text-sm text-base-content/60">
-                Your latest contest activities
-              </p>
-            </div>
-            <Link
-              to="/dashboard/my-participated"
-              className="text-cyan-500 hover:text-cyan-600 text-sm font-medium flex items-center gap-1"
-            >
-              View All <FaArrowRight className="text-xs" />
-            </Link>
-          </div>
-
-          {recentContests.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr className="text-base-content/60">
-                    <th>Contest</th>
-                    <th>Status</th>
-                    <th className="hidden sm:table-cell">Date</th>
-                    <th>Prize</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentContests.map((contest, index) => (
-                    <tr key={index} className="hover:bg-base-200/50">
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div className="avatar hidden sm:block">
-                            <div className="w-10 h-10 rounded-xl">
-                              <img
-                                src={contest.contestImage || "/placeholder.jpg"}
-                                alt={contest.contestName}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <p className="font-medium truncate max-w-[120px] sm:max-w-[150px]">
-                              {contest.contestName}
-                            </p>
-                            <p className="text-xs text-base-content/60">
-                              {contest.contestType}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span
-                          className={`badge badge-sm ${
-                            contest.submissionStatus === "submitted"
-                              ? "badge-success"
-                              : "badge-warning"
-                          }`}
-                        >
-                          {contest.submissionStatus || "Pending"}
-                        </span>
-                      </td>
-                      <td className="text-sm text-base-content/60 hidden sm:table-cell">
-                        <div className="flex items-center gap-1">
-                          <FaCalendarAlt className="text-xs" />
-                          {new Date(contest.registeredAt).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="font-medium text-emerald-500">
-                        ${contest.prizeMoney?.toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-4xl mb-3">🎯</p>
-              <p className="text-base-content/60 mb-4">
-                No contests joined yet
-              </p>
-              <Link to="/all-contests" className="btn btn-sm btn-outline-cyan">
-                Browse Contests
-              </Link>
-            </div>
-          )}
-        </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="feature-card"
-        >
-          <h3 className="text-lg font-bold mb-4">Quick Actions</h3>
-          <div className="space-y-3">
-            {quickActions.map((action, index) => (
-              <Link
-                key={index}
-                to={action.link}
-                className="flex items-center gap-4 p-3 rounded-xl hover:bg-base-200 transition-colors group"
-              >
-                <div
-                  className={`p-3 rounded-xl bg-${action.color}-500/10 group-hover:bg-${action.color}-500/20 transition-colors`}
-                >
-                  <action.icon className={`text-${action.color}-500`} />
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium">{action.title}</p>
-                  <p className="text-xs text-base-content/60">
-                    {action.description}
-                  </p>
-                </div>
-                <FaArrowRight className="text-xs text-base-content/40 group-hover:text-cyan-500 group-hover:translate-x-1 transition-all" />
-              </Link>
-            ))}
-          </div>
-
-          {/* Upcoming Deadline Alert */}
-          <div className="mt-6 p-4 bg-amber-500/10 rounded-xl border border-amber-500/20">
-            <div className="flex items-start gap-3">
-              <FaClock className="text-amber-500 mt-1" />
-              <div>
-                <p className="font-medium text-amber-600">Upcoming Deadline</p>
-                <p className="text-sm text-base-content/60 mt-1">
-                  You have contests ending soon. Don't forget to submit!
-                </p>
-                <Link
-                  to="/dashboard/my-participated"
-                  className="text-sm text-cyan-500 hover:underline mt-2 inline-block"
-                >
-                  View pending submissions →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        {/* Page Content */}
+        <main className="flex-1 p-4 lg:p-6 xl:p-8 overflow-x-hidden">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
 };
 
-export default DashboardHome;
+export default DashboardLayout;
